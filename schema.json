@@ -82,14 +82,14 @@
     "_id": "ObjectId()",
     "reviews": [
       {
-        "_id": "ObjectId()",
+        "reviewId": "ObjectId()",
         "rating": 5,
         "comment": "Great place to stay. Very clean and comfortable. Would definitely stay here again.",
         "date": "2020-09-15",
         "userId": "ObjectId()"
       },
       {
-        "_id": "ObjectId()",
+        "reviewId": "ObjectId()",
         "rating": 4,
         "comment": "Nice apartment. Close to the PATH train. Would stay here again.",
         "date": "2020-09-10",

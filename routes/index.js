@@ -6,10 +6,13 @@
     - All other enpoints should respond with a 404 as shown in the lecture code
 */
 
-import * as hostDataFunctions from "../data/host.js";
+import hostRoutes from "./host.js";
 const constructorMethod = (app) => {
-  app.use("/host");
+  app.use("/host", hostRoutes);
+
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
   });
 };
+
+export default constructorMethod;
