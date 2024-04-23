@@ -12,7 +12,7 @@
       "Studio",
       "Other"
     ],
-    "Address": {
+    "address": {
       "country": "United States",
       "country_code": "us",
       "state": "New Jersey",

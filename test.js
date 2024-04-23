@@ -3,7 +3,7 @@ import { validateHouseDetailsOnCreate } from "./validation/validateHouse.js";
 const houseObject = {
   house: {
     houseType: "Home",
-    Address: {
+    address: {
       country: "United States",
       country_code: "us",
       state: "New Jersey",
@@ -80,4 +80,4 @@ const houseObject = {
   },
 };
 
-validateHouseDetailsOnCreate(houseObject);
+validateHouseDetailsOnCreate(houseObject.house);

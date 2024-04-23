@@ -7,39 +7,99 @@ import {
   settingsSchema,
   rulesSchema,
 } from "../config/schemas/houseSchema.js";
+
+import { throwErrorWithStatus } from "../helper.js";
 export const validateHouseDetailsOnCreate = (houseDetails) => {
-  const photosSchema = {
-    main: { type: "string", required: true },
-    images: { type: "object", required: true },
-  };
+  try {
+    const photosSchema = {
+      main: { type: "string", required: true },
+      images: { type: "object", required: true },
+    };
 
-  checkifObjectFollowsSchema(houseDetails.house, houseSchema);
-  checkifObjectFollowsSchema(houseDetails.house.Address, addressSchema);
+    checkifObjectFollowsSchema(houseDetails, houseSchema);
+    checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
-  if (enums.houseType.includes(houseDetails.house.houseType) === false) {
-    throw new Error("Invalid house type");
-  }
-  if (enums.currency.includes(houseDetails.house.currency) === false) {
-    throw new Error("Invalid currency");
-  }
-  for (const amenity in houseDetails.house.amenities) {
-    if (enums.amenities.includes(amenity) === false) {
-      throw new Error("Invalid amenity");
+    if (enums.houseType.includes(houseDetails.houseType) === false) {
+      throw "Invalid house type";
     }
-  }
-  for (const feature in houseDetails.house.features) {
-    if (enums.features.includes(feature) === false) {
-      throw new Error("Invalid feature");
+    if (enums.currency.includes(houseDetails.currency) === false) {
+      throw "Invalid currency";
     }
+    for (const amenity in houseDetails.amenities) {
+      if (enums.amenities.includes(amenity) === false) {
+        throw "Invalid amenity";
+      }
+    }
+    for (const feature in houseDetails.features) {
+      if (enums.features.includes(feature) === false) {
+        throw "Invalid feature";
+      }
+    }
+
+    checkifObjectFollowsSchema(houseDetails.amenities, amenitiesSchema);
+    checkifObjectFollowsSchema(houseDetails.features, featuresSchema);
+    checkifObjectFollowsSchema(houseDetails.settings, settingsSchema);
+    checkifObjectFollowsSchema(houseDetails.rules, rulesSchema);
+    checkifObjectFollowsSchema(houseDetails.photos, photosSchema);
+    const photos = houseDetails.photos;
+
+    if (!photos) throwErrorWithStatus(400, "You must provide a photo");
+
+    if (!photos.main)
+      throwErrorWithStatus(400, "You must provide a main photo");
+
+    if (!photos.images) throwErrorWithStatus(400, "You must provide images");
+
+    if (typeof photos.main !== "string")
+      throwErrorWithStatus(400, "Main photo must be a string");
+    if (!Array.isArray(photos.images))
+      throwErrorWithStatus(400, "Images must be an array");
+
+    if (photos.images.some((image) => isValidImageURL(image)))
+      throwErrorWithStatus(
+        400,
+        "Images must be valid URLS with extensions of .jpg, .jpeg, .png"
+      );
+
+    const validHouse = {
+      houseType: houseDetails.houseType,
+      address: houseDetails.address,
+
+      features: houseDetails.features,
+
+      amenities: houseDetails.amenities,
+
+      settings: houseDetails.settings,
+
+      rules: houseDetails.rules,
+
+      photos: houseDetails.photos,
+
+      title: houseDetails.title,
+
+      description: houseDetails.description,
+
+      isInstantBooking: houseDetails.isInstantBooking,
+
+      price: houseDetails.price,
+
+      currency: houseDetails.currency,
+
+      hostId: houseDetails.hostId,
+
+      createdAt: new Date(),
+
+      isApproved: false,
+
+      isDeleted: false,
+
+      updatedAt: new Date(),
+    };
+
+    return validHouse;
+  } catch (e) {
+    throwErrorWithStatus(400, e);
   }
-
-  checkifObjectFollowsSchema(houseDetails.house.amenities, amenitiesSchema);
-  checkifObjectFollowsSchema(houseDetails.house.features, featuresSchema);
-  checkifObjectFollowsSchema(houseDetails.house.settings, settingsSchema);
-  checkifObjectFollowsSchema(houseDetails.house.rules, rulesSchema);
-  checkifObjectFollowsSchema(houseDetails.house.photos, photosSchema);
-
-  return true;
 };
 
 const checkifObjectFollowsSchema = (object, schema) => {
@@ -51,7 +111,7 @@ const checkifObjectFollowsSchema = (object, schema) => {
       fieldSchema.required &&
       (fieldValue === undefined || fieldValue === null)
     ) {
-      throw new Error(`Missing required field: ${field}`);
+      throw `Missing required field: ${field}`;
     }
 
     if (fieldValue !== undefined && fieldValue !== null) {
@@ -59,14 +119,10 @@ const checkifObjectFollowsSchema = (object, schema) => {
 
       if (fieldSchema.type == "Date") {
         if (isNaN(Date.parse(fieldValue))) {
-          throw new Error(
-            `Invalid type for field ${field}. Expected ${fieldSchema.type}, but got ${fieldType}`
-          );
+          throw `Invalid type for field ${field}. Expected ${fieldSchema.type}, but got ${fieldType}`;
         }
       } else if (fieldType !== fieldSchema.type) {
-        throw new Error(
-          `Invalid type for field ${field}. Expected ${fieldSchema.type}, but got ${fieldType}`
-        );
+        throw `Invalid type for field ${field}. Expected ${fieldSchema.type}, but got ${fieldType}`;
       }
 
       if (fieldType === "string") {
@@ -75,33 +131,40 @@ const checkifObjectFollowsSchema = (object, schema) => {
           fieldSchema.minLength !== undefined &&
           fieldValue.length < fieldSchema.minLength
         ) {
-          throw new Error(
-            `Invalid length for field ${field}. Expected a minimum length of ${fieldSchema.minLength}`
-          );
+          throw `Invalid length for field ${field}. Expected a minimum length of ${fieldSchema.minLength}`;
         }
 
         if (
           fieldSchema.maxLength !== undefined &&
           fieldValue.length > fieldSchema.maxLength
         ) {
-          throw new Error(
-            `Invalid length for field ${field}. Expected a maximum length of ${fieldSchema.maxLength}`
-          );
+          throw `Invalid length for field ${field}. Expected a maximum length of ${fieldSchema.maxLength}`;
         }
       }
 
       if (fieldType === "number") {
         if (fieldSchema.min !== undefined && fieldValue < fieldSchema.min) {
-          throw new Error(
-            `Invalid value for field ${field}. Expected a value greater than or equal to ${fieldSchema.min}`
-          );
+          throw `Invalid value for field ${field}. Expected a value greater than or equal to ${fieldSchema.min}`;
         }
         if (fieldSchema.max !== undefined && fieldValue > fieldSchema.max) {
-          throw new Error(
-            `Invalid value for field ${field}. Expected a value less than or equal to ${fieldSchema.max}`
-          );
+          throw `Invalid value for field ${field}. Expected a value less than or equal to ${fieldSchema.max}`;
         }
       }
     }
   }
+};
+
+export const isValidImageURL = (ImageUrl) => {
+  const url = new URL(ImageUrl);
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    return false;
+  }
+  if (url.host === "") {
+    return false;
+  }
+  if (!/.(jpeg|jpg|png)$/i.test(url.pathname)) {
+    return false;
+  }
+
+  return true;
 };

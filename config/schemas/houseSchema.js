@@ -1,6 +1,6 @@
 export const houseSchema = {
   houseType: { type: "string", required: true },
-  Address: { type: "object", required: true },
+  address: { type: "object", required: true },
   features: { type: "object", required: true },
   amenities: { type: "object", required: true },
   settings: { type: "object", required: true },
