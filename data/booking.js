@@ -39,6 +39,8 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
 
     const { userId, checkIn, checkOut } = bookingInfo;
     //const user = await getUserById(userId.toString());
+    validateBooking.isDateValid(checkIn);
+    validateBooking.isDateValid(checkOut);
     validateBooking.validateCheckInAndCheckOutTime(checkIn, checkOut);
     const numbersOfDaysLiving = helper.computeDaysByCheckInAndCheckOut(checkIn, checkOut);
     const price = house.price;
