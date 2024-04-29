@@ -12,7 +12,7 @@ export const getMongoID = (id) => {
 };
 
 export const computeDaysByCheckInAndCheckOut = (checkIn, checkOut) => {
-  const differenceInTime = checkOut.getTime() - checkIn.getTime();
+  const differenceInTime = new Date(checkOut).getTime() - new Date(checkIn).getTime();
   const differenceInDays = differenceInTime / (1000 * 3600 * 24);
   const numberOfDays = Math.round(differenceInDays);
   return numberOfDays;
