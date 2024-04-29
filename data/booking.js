@@ -1,7 +1,7 @@
-import { houses } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import { getMongoID, computeDaysByCheckInAndCheckOut } from "../helper.js";
 import * as validateBooking from "../validation/validateBooking.js";
+import * as helper from "../helper.js";
 import { houses, users } from "../config/mongoCollections.js";
 
 export const getHouseById = async (id) => {
@@ -23,7 +23,7 @@ export const getUserById = async (id) => {
     const userCollection = await users();
     const user = await userCollection.findOne({ _id: getMongoID(id) });
 
-    if (user === null) throw "No house with that id";
+    if (user === null) throw "No user with that id";
 
     return user;
 };
@@ -38,14 +38,14 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
     if (house === null) throw "No house with that id";
 
     const { userId, checkIn, checkOut } = bookingInfo;
-    const user = await getUserById(userId.toString());
+    //const user = await getUserById(userId.toString());
     validateBooking.validateCheckInAndCheckOutTime(checkIn, checkOut);
     const numbersOfDaysLiving = helper.computeDaysByCheckInAndCheckOut(checkIn, checkOut);
     const price = house.price;
     const totalPrice = price * numbersOfDaysLiving;
     const newBooking = {
         bookingId: new ObjectId(),
-        userId: user._id,
+        userId: userId,
         checkIn: checkIn,
         checkOut: checkOut,
         totalPrice: totalPrice,
