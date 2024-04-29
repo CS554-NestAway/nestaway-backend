@@ -7,9 +7,10 @@
 */
 
 import hostRoutes from "./host.js";
+import bookingRoutes from "./booking.js";
 const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
-
+  app.use("/booking", bookingRoutes)
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
   });
