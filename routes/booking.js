@@ -1,12 +1,15 @@
 import express from 'express';
 const router = express.Router();
 import * as validation from '../validation/validateBooking.js';
-import { getHouseById, getUserById, addBookingByHouseId } from '../data/booking';
+import { getHouseById, getUserById, addBookingByHouseId } from '../data/booking.js';
 import xss from 'xss';
 router
     .route('/addBooking')
+    .get(async (req, res) => {
+        return res.status(200).json({status: 200});
+    })
     .post(async (req, res) => {
-        const newBooking = xss(req.body);
+        const newBooking = req.body;
         if (!newBooking.checkIn || !newBooking.checkOut || !newBooking.houseId || !newBooking.userId) {
             return res.status(400).json({
                 "error: you should input json like":
@@ -37,3 +40,5 @@ router
         }
         return res.status(200).json(updatedHouse);
     });
+
+export default router;
