@@ -27,14 +27,14 @@ router
         const userId = newBooking.userId.toString().trim();
         try {
             validation.validateCheckInAndCheckOutTime(checkIn, checkOut);
-            getHouseById(houseId);
+            await getHouseById(houseId);
             //getUserById(userId);
         } catch (e) {
             return res.status(400).json({error: e});
         }
         let updatedHouse;
         try {
-            updatedHouse = addBookingByHouseId(houseId, {userId, checkIn, checkOut});
+            updatedHouse = await addBookingByHouseId(houseId, {userId, checkIn, checkOut});
         } catch (e) {
             return res.status(400).json({error: e});
         }
