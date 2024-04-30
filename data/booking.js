@@ -37,14 +37,18 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
 
     if (house === null) throw "No house with that id";
 
-    const { userId, checkIn, checkOut } = bookingInfo;
+    const { userId, checkIn, checkOut, paymentMethod } = bookingInfo;
     //const user = await getUserById(userId.toString());
     validateBooking.isDateValid(checkIn);
     validateBooking.isDateValid(checkOut);
     validateBooking.validateCheckInAndCheckOutTime(checkIn, checkOut);
     const numbersOfDaysLiving = helper.computeDaysByCheckInAndCheckOut(checkIn, checkOut);
     const price = house.price;
-    const totalPrice = price * numbersOfDaysLiving;
+    const st = numbersOfDaysLiving * price;
+    const t = st * 0.06625;
+    const sf = st * 0.142;
+    const tp = st + t + sf;
+    const totalPrice = parseFloat(tp.toFixed(2));
     const newBooking = {
         bookingId: new ObjectId(),
         userId: userId,
@@ -52,9 +56,9 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
         checkOut: checkOut,
         totalPrice: totalPrice,
         currency: "USD",
-        paymentMethod: "Credit Card",
+        paymentMethod: paymentMethod,
         createdAt: new Date(),
-        status: "pending"
+        status: "confirmed"
     }
     const bookingArray = house.bookings;
     bookingArray.push(newBooking);
