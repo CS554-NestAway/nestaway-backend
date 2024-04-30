@@ -8,9 +8,11 @@
 
 import hostRoutes from "./host.js";
 import bookingRoutes from "./booking.js";
+import paymentRoutes from "./payment.js"
 const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
   app.use("/booking", bookingRoutes)
+  app.use("/payment", paymentRoutes)
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
   });
