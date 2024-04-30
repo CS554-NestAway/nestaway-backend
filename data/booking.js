@@ -42,6 +42,7 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
     validateBooking.isDateValid(checkIn);
     validateBooking.isDateValid(checkOut);
     validateBooking.validateCheckInAndCheckOutTime(checkIn, checkOut);
+    await validateBooking.overlappingBooking(id, checkIn, checkOut);
     const numbersOfDaysLiving = helper.computeDaysByCheckInAndCheckOut(checkIn, checkOut);
     const price = house.price;
     const st = numbersOfDaysLiving * price;
