@@ -5,11 +5,11 @@ import "dotenv/config";
 import configRoutesFunction from "./routes/index.js";
 import { dbConnection } from "./config/mongoConnection.js";
 import session from "express-session";
-
+import cors from 'cors';
 const databaseconnection = dbConnection();
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 configRoutesFunction(app);
