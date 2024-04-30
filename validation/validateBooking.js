@@ -1,3 +1,4 @@
+import { getHouseById } from "../data/host.js";
 export const validateCheckInAndCheckOutTime = (checkIn, checkOut) => {
     if (new Date(checkIn) < new Date()) {
         throw "Check in date must be greater than today";
@@ -30,3 +31,20 @@ export const isDateValid = (date) => {
     }
 };
 
+export const overlappingBooking = async (houseId, checkIn, checkOut) => {
+    const house = await getHouseById(houseId);
+    const overlapping = house.bookings.find((booking) => {
+        const existingCheckIn = new Date(booking.checkIn);
+        const existingCheckOut = new Date(booking.checkOut);
+        const newCheckIn = new Date(checkIn);
+        const newCheckOut = new Date(checkOut);
+
+        return (
+            (newCheckIn < existingCheckOut && newCheckOut > existingCheckIn) || // Check for overlapping dates
+            (newCheckIn.getTime() === existingCheckIn.getTime() && newCheckOut.getTime() === existingCheckOut.getTime()) // Check for exact same dates
+        );
+    });
+    if (overlapping) {
+        throw "Booking dates overlap with an existing booking";
+    }
+}
