@@ -10,7 +10,7 @@ router
     })
     .post(async (req, res) => {
         const newBooking = req.body;
-        if (!newBooking.checkIn || !newBooking.checkOut || !newBooking.houseId || !newBooking.userId) {
+        if (!newBooking.checkIn || !newBooking.checkOut || !newBooking.houseId || !newBooking.userId || !newBooking.paymentMethod) {
             return res.status(400).json({
                 "error: you should input json like":
                 {
@@ -18,6 +18,7 @@ router
                     'checkOut': 'Stirng',
                     'houseId': 'String',
                     'userId': 'String',
+                    'paymentMethod': 'String'
                 }
             });
         }
@@ -25,6 +26,7 @@ router
         const checkOut = newBooking.checkOut.toString().trim();
         const houseId = newBooking.houseId.toString().trim();
         const userId = newBooking.userId.toString().trim();
+        const paymentMethod = newBooking.paymentMethod.toString().trim();
         try {
             validation.validateCheckInAndCheckOutTime(checkIn, checkOut);
             await getHouseById(houseId);
@@ -34,11 +36,11 @@ router
         }
         let updatedHouse;
         try {
-            updatedHouse = await addBookingByHouseId(houseId, {userId, checkIn, checkOut});
+            updatedHouse = await addBookingByHouseId(houseId, {userId, checkIn, checkOut, paymentMethod});
         } catch (e) {
             return res.status(400).json({error: e});
         }
-        return res.status(200).json(updatedHouse);
+        return res.status(200).json({updatedHouse: updatedHouse, success: true});
     });
 
 export default router;
