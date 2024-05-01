@@ -59,7 +59,7 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
         currency: "USD",
         paymentMethod: paymentMethod,
         createdAt: new Date(),
-        status: "confirmed"
+        status: "pending"
     }
     const bookingArray = house.bookings;
     bookingArray.push(newBooking);
