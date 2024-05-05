@@ -12,7 +12,7 @@ export const checkIfHouseBelongsToHost = async (req, res, next) => {
 
   try {
     const house = await hostDataFunctions.getHouseById(req.params.id);
-    if (house.hostId !== req.user._id) {
+    if (house.hostId !== req.session.user._id) {
       return res
         .status(403)
         .json({ error: "You are not authorized to perform this action" });

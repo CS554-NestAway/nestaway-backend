@@ -3,6 +3,7 @@ import * as hostDataFunctions from "../data/host.js";
 import { checkIfHouseBelongsToHost } from "../middlewares/middleware.js";
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
+import { ObjectId } from "mongodb";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -16,12 +17,13 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const houseDetails = req.body;
-
-    houseDetails = req.user.userId;
+    console.log(houseDetails);
+    houseDetails.hostId = req.session.user._id;
 
     const house = await hostDataFunctions.addHouse(houseDetails);
     res.json(house);
   } catch (e) {
+    console.log(e);
     if (e.status) {
       res.status(e.status).json({ error: e.message });
     } else {

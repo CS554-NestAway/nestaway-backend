@@ -13,10 +13,9 @@ export const houseSchema = {
     minLength: 1,
     maxLength: 1000,
   },
-  isInstantBooking: { type: "boolean", required: true },
   price: { type: "number", required: true, min: 0 },
   currency: { type: "string", required: true },
-  hostId: { type: "string", required: true },
+
   createdAt: { type: "Date", required: true },
   isApproved: { type: "boolean", required: true },
   isDeleted: { type: "boolean", required: true },

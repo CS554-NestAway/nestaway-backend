@@ -8,10 +8,14 @@ import {
   rulesSchema,
   photosSchema,
 } from "../config/schemas/houseSchema.js";
-
+import { ObjectId } from "mongodb";
 import { throwErrorWithStatus } from "../helper.js";
 export const validateHouseDetailsOnCreate = (houseDetails) => {
   try {
+    if (!houseDetails.hostId)
+      throwErrorWithStatus(400, "You must provide a hostId");
+    if (!ObjectId.isValid(houseDetails.hostId))
+      throwErrorWithStatus(400, "Invalid hostId");
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 

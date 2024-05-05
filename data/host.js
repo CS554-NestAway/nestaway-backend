@@ -43,21 +43,21 @@ export const addHouse = async (houseDetails) => {
     houseDetails.updatedAt = new Date();
     houseDetails.isDeleted = false;
     houseDetails.isApproved = false;
-    houseDetails = new ObjectId("sdadssa");
 
     houseDetails = validateHouseDetailsOnCreate(houseDetails);
 
     const houseCollection = await houses();
 
     const insertInfo = await houseCollection.insertOne(houseDetails);
+    console.log(insertInfo.insertedId);
     if (insertInfo.insertedCount === 0)
       throwErrorWithStatus(500, "Could not add house");
+
+    return await getHouseById(insertInfo.insertedId);
   } catch (e) {
     if (e.status) throwErrorWithStatus(e.status, e.message);
     throw e;
   }
-
-  return await this.getHouseById(insertInfo.insertedId);
 };
 
 export const updateHouse = async (id, houseDetails) => {
