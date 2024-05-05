@@ -3,10 +3,10 @@ import "dotenv/config";
 import configRoutesFunction from "./routes/index.js";
 import { dbConnection } from "./config/mongoConnection.js";
 import session from "express-session";
+
 import cors from "cors";
 import fbconfig from './FirebaseConfig.js';
 import { initializeApp } from 'firebase/app';
-
 const databaseconnection = dbConnection();
 const app = express();
 const fbapp = initializeApp(fbconfig);
