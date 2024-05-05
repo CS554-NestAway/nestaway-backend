@@ -6,16 +6,12 @@ import {
   featuresSchema,
   settingsSchema,
   rulesSchema,
+  photosSchema,
 } from "../config/schemas/houseSchema.js";
 
 import { throwErrorWithStatus } from "../helper.js";
 export const validateHouseDetailsOnCreate = (houseDetails) => {
   try {
-    const photosSchema = {
-      main: { type: "string", required: true },
-      images: { type: "object", required: true },
-    };
-
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
@@ -61,32 +57,39 @@ export const validateHouseDetailsOnCreate = (houseDetails) => {
         "Images must be valid URLS with extensions of .jpg, .jpeg, .png"
       );
 
+    if (typeof houseDetails.address.location !== "object")
+      throwErrorWithStatus(400, "Location must be an object");
+
+    if (typeof houseDetails.address.location.type !== "string")
+      throwErrorWithStatus(400, "Location type must be a string");
+    if (houseDetails.address.location.type !== "Point")
+      throwErrorWithStatus(400, "Location type must be a Point");
+
+    if (!Array.isArray(houseDetails.address.location.coordinates))
+      throwErrorWithStatus(400, "Coordinates must be an array");
+
+    if (houseDetails.address.location.coordinates.length !== 2)
+      throwErrorWithStatus(400, "Coordinates must have exactly two values");
+
+    if (typeof houseDetails.address.location.coordinates[0] !== "number")
+      throwErrorWithStatus(400, "Coordinates must be numbers");
+    if (typeof houseDetails.address.location.coordinates[1] !== "number")
+      throwErrorWithStatus(400, "Coordinates must be numbers");
+
     const validHouse = {
       houseType: houseDetails.houseType,
       address: houseDetails.address,
-
       features: houseDetails.features,
-
       amenities: houseDetails.amenities,
-
       settings: houseDetails.settings,
-
       rules: houseDetails.rules,
-
       photos: houseDetails.photos,
-
       title: houseDetails.title,
-
       description: houseDetails.description,
-
       isInstantBooking: houseDetails.isInstantBooking,
-
       price: houseDetails.price,
-
       currency: houseDetails.currency,
-
       hostId: houseDetails.hostId,
-
       createdAt: new Date(),
 
       isApproved: false,

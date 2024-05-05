@@ -1,5 +1,5 @@
 import { validateHouseDetailsOnCreate } from "./validation/validateHouse.js";
-
+import { getHouseQuery } from "./data/host.js";
 const houseObject = {
   house: {
     houseType: "Home",
@@ -12,8 +12,10 @@ const houseObject = {
       postcode: "07307",
       street: "Ogden Avenue",
       housenumber: "382",
-      lon: -74.04142075510204,
-      lat: 40.74674712244898,
+      location: {
+        type: "Point",
+        coordinates: [-74.04142075510204, 40.74674712244898],
+      },
       state_code: "NJ",
       result_type: "building",
       formatted:
@@ -81,3 +83,9 @@ const houseObject = {
 };
 
 validateHouseDetailsOnCreate(houseObject.house);
+
+const queryObj = {
+  state: "New Jersey",
+};
+
+console.log(await getHouseQuery(queryObj));

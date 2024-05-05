@@ -32,8 +32,7 @@ export const addressSchema = {
   postcode: { type: "string", required: true },
   street: { type: "string", required: true },
   housenumber: { type: "string", required: true },
-  lon: { type: "number", required: true },
-  lat: { type: "number", required: true },
+  location: { type: "object", required: true },
   state_code: { type: "string", required: true },
   result_type: { type: "string", required: true },
   formatted: { type: "string", required: true },
@@ -77,4 +76,8 @@ export const rulesSchema = {
   checkOut: { type: "number", required: true, min: 0, max: 23 },
   smoking: { type: "boolean", required: true },
   pets: { type: "boolean", required: true },
+};
+export const photosSchema = {
+  main: { type: "string", required: true },
+  images: { type: "object", required: true },
 };

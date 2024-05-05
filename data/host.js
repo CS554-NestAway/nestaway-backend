@@ -27,17 +27,7 @@ export const getHouseById = async (id, projections) => {
   if (ObjectId.isValid(id) === false) throw "Invalid ID provided";
 
   const houseCollection = await houses();
-  const house = await houseCollection.findOne({ _id: getMongoID(id) }).project(
-    projections || {
-      name: 1,
-      houseType: 1,
-      address: 1,
-      photos: 1,
-      price: 1,
-      currency: 1,
-      rating: 1,
-    }
-  );
+  const house = await houseCollection.findOne({ _id: getMongoID(id) });
 
   if (house === null) throwErrorWithStatus(404, "House not found");
 
@@ -49,6 +39,12 @@ export const addHouse = async (houseDetails) => {
   if (typeof houseDetails !== "object") throw "House details must be an object";
 
   try {
+    houseDetails.createdAt = new Date();
+    houseDetails.updatedAt = new Date();
+    houseDetails.isDeleted = false;
+    houseDetails.isApproved = false;
+    houseDetails = new ObjectId("sdadssa");
+
     houseDetails = validateHouseDetailsOnCreate(houseDetails);
 
     const houseCollection = await houses();
@@ -155,4 +151,76 @@ export const deleteHouse = async (id) => {
     if (e.status) throwErrorWithStatus(e.status, e.message);
     throw e;
   }
+};
+
+export const getHouseQuery = async ({
+  state,
+  lat,
+  lng,
+  radius,
+  checkin,
+  checkout,
+}) => {
+  const houseCollection = await houses();
+  let housesData;
+  if (state) {
+    housesData = await houseCollection
+      .find({ "address.state": state })
+      .toArray();
+  } else {
+    radius = radius * 1609.34; // convert miles to meters
+    housesData = await houseCollection
+      .find({
+        "address.location": {
+          $near: {
+            $geometry: { type: "Point", coordinates: [lat, lng] },
+            $maxDistance: radius,
+          },
+        },
+      })
+      .toArray();
+  }
+
+  housesData = await filterHousesByAvailability(housesData, checkin, checkout);
+
+  return houses;
+};
+
+export const filterHousesByAvailability = async (
+  housesData,
+  checkin,
+  checkout
+) => {
+  const availableHouses = [];
+  for (const house of housesData) {
+    if (await isHouseAvailable(house._id, checkin, checkout)) {
+      availableHouses.push(house);
+    }
+  }
+  console.log(availableHouses);
+  return availableHouses;
+};
+
+export const isHouseAvailable = async (houseId, startDate, endDate) => {
+  const house = await getHouseById(houseId);
+  if (!house || house.isDeleted || !house.isApproved) {
+    return false;
+  }
+
+  const bookings = house.bookings;
+  if (!bookings) {
+    return true;
+  }
+
+  for (const booking of bookings) {
+    if (
+      (startDate >= booking.startDate && startDate <= booking.endDate) ||
+      (endDate >= booking.startDate && endDate <= booking.endDate) ||
+      (startDate <= booking.startDate && endDate >= booking.endDate)
+    ) {
+      return false;
+    }
+  }
+
+  return true;
 };

@@ -16,6 +16,9 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const houseDetails = req.body;
+
+    houseDetails = req.user.userId;
+
     const house = await hostDataFunctions.addHouse(houseDetails);
     res.json(house);
   } catch (e) {
