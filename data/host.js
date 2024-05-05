@@ -183,7 +183,7 @@ export const getHouseQuery = async ({
 
   housesData = await filterHousesByAvailability(housesData, checkin, checkout);
 
-  return houses;
+  return housesData;
 };
 
 export const filterHousesByAvailability = async (
@@ -223,4 +223,11 @@ export const isHouseAvailable = async (houseId, startDate, endDate) => {
   }
 
   return true;
+};
+
+export const getUniqueStates = async () => {
+  const houseCollection = await houses();
+  const states = await houseCollection.distinct("address.state");
+
+  return states;
 };
