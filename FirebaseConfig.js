@@ -1,8 +1,8 @@
 export default {
-  apiKey: "AIzaSyA1j1iK8Nu-h1S301UYJXHZC5z1YS7zfkE",
-  authDomain: "nestaway-301ac.firebaseapp.com",
-  projectId: "nestaway-301ac",
-  storageBucket: "nestaway-301ac.appspot.com",
-  messagingSenderId: "198190248187",
-  appId: "1:198190248187:web:22ee2479651a9b2f65405e"
+  apiKey: "AIzaSyBK8fxVfW55MPqshFEEzYhspxjm65qMUBE",
+  authDomain: "nestaway554-2da97.firebaseapp.com",
+  projectId: "nestaway554-2da97",
+  storageBucket: "nestaway554-2da97.appspot.com",
+  messagingSenderId: "779144099806",
+  appId: "1:779144099806:web:2faeaa6676fffbd482cf4f"
   };

@@ -5,7 +5,7 @@ import {
 } from 'firebase/auth';
 
 const createUser = async(
-    name, email
+    id,name, email
   ) => {
     const userCollection = await users();
     const emailExits = await userCollection.findOne({email});
@@ -14,7 +14,8 @@ const createUser = async(
     }
     const newUser = {
         name: name,
-        email: email
+        email: email,
+        uid: id
       };
     
       const insertInfo = await userCollection.insertOne(newUser);
