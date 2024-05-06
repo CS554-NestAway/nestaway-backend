@@ -55,7 +55,7 @@ export const validateHouseDetailsOnCreate = (houseDetails) => {
     if (!Array.isArray(photos.images))
       throwErrorWithStatus(400, "Images must be an array");
 
-    if (photos.images.some((image) => isValidImageURL(image)))
+    if (photos.images.some((image) => !isValidImageURL(image)))
       throwErrorWithStatus(
         400,
         "Images must be valid URLS with extensions of .jpg, .jpeg, .png"
