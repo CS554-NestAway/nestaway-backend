@@ -1,8 +1,8 @@
 import * as hostDataFunctions from "../data/host.js";
-import { initializeApp } from "firebase-admin/app";
+import firebaseApp from "../config/fbconfig.js";
+import { getAuth } from "firebase-admin/auth";
 
-const app = initializeApp();
-
+// import { auth } from "firebase-admin";
 export const checkIfHouseBelongsToHost = async (req, res, next) => {
   // if (!req.params.id) {
   //   return res.status(400).json({ error: "You must provide an id" });
@@ -33,5 +33,18 @@ export const isAdmin = (role) => {
 };
 
 export const validateUserToken = async (req, res, next) => {
-  next();
+  try {
+    let token = req.headers.authorization;
+    token = token.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ error: "You must provide a token" });
+    }
+
+    const decodedToken = await getAuth().verifyIdToken(token);
+    req.user = decodedToken;
+    next();
+  } catch (e) {
+    req.user = null;
+  }
 };

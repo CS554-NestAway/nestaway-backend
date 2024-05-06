@@ -5,11 +5,12 @@ import { dbConnection } from "./config/mongoConnection.js";
 import session from "express-session";
 // import * as t from "./test.js";
 import cors from "cors";
-import fbconfig from "./FirebaseConfig.js";
-import { initializeApp } from "firebase/app";
+import firebaseApp from "./config/fbconfig.js";
+import { validateUserToken } from "./middlewares/middleware.js";
+// import fbconfig from "./FirebaseConfig.js";
 const databaseconnection = dbConnection();
 const app = express();
-const fbapp = initializeApp(fbconfig);
+
 app.use(
   session({
     name: "AuthSession",
@@ -28,7 +29,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
+app.use(validateUserToken);
 configRoutesFunction(app);
 
 app.listen(process.env.PORT || 8080, () => {

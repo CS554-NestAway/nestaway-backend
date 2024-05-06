@@ -15,11 +15,10 @@ export const houseSchema = {
   },
   price: { type: "number", required: true, min: 0 },
   currency: { type: "string", required: true },
-
-  createdAt: { type: "Date", required: true },
+  createdAt: { type: "Date", required: false },
   isApproved: { type: "boolean", required: true },
   isDeleted: { type: "boolean", required: true },
-  updatedAt: { type: "Date", required: true },
+  updatedAt: { type: "Date", required: false },
 };
 
 export const addressSchema = {

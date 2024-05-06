@@ -175,3 +175,95 @@ export const isValidImageURL = (ImageUrl) => {
 
   return true;
 };
+
+export const validateHouseDetailsOnUpdate = (houseDetails) => {
+  try {
+    if (!houseDetails.hostId)
+      throwErrorWithStatus(400, "You must provide a hostId");
+    if (!ObjectId.isValid(houseDetails.hostId))
+      throwErrorWithStatus(400, "Invalid hostId");
+    checkifObjectFollowsSchema(houseDetails, houseSchema);
+    checkifObjectFollowsSchema(houseDetails.address, addressSchema);
+
+    if (enums.houseType.includes(houseDetails.houseType) === false) {
+      throw "Invalid house type";
+    }
+    if (enums.currency.includes(houseDetails.currency) === false) {
+      throw "Invalid currency";
+    }
+    for (const amenity in houseDetails.amenities) {
+      if (enums.amenities.includes(amenity) === false) {
+        throw "Invalid amenity";
+      }
+    }
+    for (const feature in houseDetails.features) {
+      if (enums.features.includes(feature) === false) {
+        throw "Invalid feature";
+      }
+    }
+
+    checkifObjectFollowsSchema(houseDetails.amenities, amenitiesSchema);
+    checkifObjectFollowsSchema(houseDetails.features, featuresSchema);
+    checkifObjectFollowsSchema(houseDetails.settings, settingsSchema);
+    checkifObjectFollowsSchema(houseDetails.rules, rulesSchema);
+    checkifObjectFollowsSchema(houseDetails.photos, photosSchema);
+    const photos = houseDetails.photos;
+
+    if (!photos) throwErrorWithStatus(400, "You must provide a photo");
+
+    if (!photos.main)
+      throwErrorWithStatus(400, "You must provide a main photo");
+
+    if (!photos.images) throwErrorWithStatus(400, "You must provide images");
+
+    if (typeof photos.main !== "string")
+      throwErrorWithStatus(400, "Main photo must be a string");
+    if (!Array.isArray(photos.images))
+      throwErrorWithStatus(400, "Images must be an array");
+
+    if (photos.images.some((image) => !isValidImageURL(image)))
+      throwErrorWithStatus(
+        400,
+        "Images must be valid URLS with extensions of .jpg, .jpeg, .png"
+      );
+
+    if (typeof houseDetails.address.location !== "object")
+      throwErrorWithStatus(400, "Location must be an object");
+
+    if (typeof houseDetails.address.location.type !== "string")
+      throwErrorWithStatus(400, "Location type must be a string");
+    if (houseDetails.address.location.type !== "Point")
+      throwErrorWithStatus(400, "Location type must be a Point");
+
+    if (!Array.isArray(houseDetails.address.location.coordinates))
+      throwErrorWithStatus(400, "Coordinates must be an array");
+
+    if (houseDetails.address.location.coordinates.length !== 2)
+      throwErrorWithStatus(400, "Coordinates must have exactly two values");
+
+    if (typeof houseDetails.address.location.coordinates[0] !== "number")
+      throwErrorWithStatus(400, "Coordinates must be numbers");
+    if (typeof houseDetails.address.location.coordinates[1] !== "number")
+      throwErrorWithStatus(400, "Coordinates must be numbers");
+
+    const validHouse = {
+      houseType: houseDetails.houseType,
+      address: houseDetails.address,
+      features: houseDetails.features,
+      amenities: houseDetails.amenities,
+      settings: houseDetails.settings,
+      rules: houseDetails.rules,
+      photos: houseDetails.photos,
+      title: houseDetails.title,
+      description: houseDetails.description,
+      isInstantBooking: houseDetails.isInstantBooking,
+      price: houseDetails.price,
+      currency: houseDetails.currency,
+      hostId: houseDetails.hostId,
+    };
+
+    return validHouse;
+  } catch (e) {
+    throwErrorWithStatus(400, e);
+  }
+};

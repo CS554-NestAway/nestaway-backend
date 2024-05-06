@@ -1,7 +1,10 @@
 import { houses } from "../config/mongoCollections.js";
 import { ObjectId } from "mongodb";
 import { getMongoID } from "../helper.js";
-import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
+import {
+  validateHouseDetailsOnCreate,
+  validateHouseDetailsOnUpdate,
+} from "../validation/validateHouse.js";
 import { throwErrorWithStatus } from "../helper.js";
 export const getAllHouses = async (projections) => {
   const houseCollection = await houses();
@@ -68,9 +71,9 @@ export const updateHouse = async (id, houseDetails) => {
   if (typeof houseDetails !== "object") throw "House details must be an object";
 
   try {
-    houseDetails.updatedAt = new Date();
+    // houseDetails.updatedAt = new Date();
 
-    validateHouseDetailsOnCreate(houseDetails);
+    validateHouseDetailsOnUpdate(houseDetails);
 
     const houseCollection = await houses();
 
