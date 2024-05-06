@@ -1,5 +1,11 @@
 import { validateHouseDetailsOnCreate } from "./validation/validateHouse.js";
-import { getHouseQuery } from "./data/host.js";
+import {
+  getHouseQuery,
+  toggleHouseApproveStatus,
+  toggleHouseDeleteStatus,
+  gethousesbyhostid,
+  toggleHouseActiveStatus,
+} from "./data/host.js";
 const houseObject = {
   house: {
     houseType: "Home",
@@ -89,3 +95,7 @@ const queryObj = {
 };
 
 console.log(await getHouseQuery(queryObj));
+console.log(await gethousesbyhostid("6621fc3c03f8cbabbabc287c"));
+console.log(await toggleHouseApproveStatus("66380ae915da18d01efd9e7f"));
+console.log(await toggleHouseDeleteStatus("66380ae915da18d01efd9e7f"));
+console.log(await toggleHouseActiveStatus("66380ae915da18d01efd9e7f"));
