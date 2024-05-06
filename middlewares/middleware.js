@@ -1,10 +1,13 @@
 import * as hostDataFunctions from "../data/host.js";
+import { initializeApp } from "firebase-admin/app";
+
+const app = initializeApp();
 
 export const checkIfHouseBelongsToHost = async (req, res, next) => {
-  if (!req.params.id) {
-    return res.status(400).json({ error: "You must provide an id" });
-  }
-
+  // if (!req.params.id) {
+  //   return res.status(400).json({ error: "You must provide an id" });
+  // }
+  next();
   //   if (isAdmin(req.user.role)) {
   if (isAdmin("a")) {
     next();
@@ -27,4 +30,8 @@ export const checkIfHouseBelongsToHost = async (req, res, next) => {
 export const isAdmin = (role) => {
   //   return role === "admin";
   return false;
+};
+
+export const validateUserToken = async (req, res, next) => {
+  next();
 };
