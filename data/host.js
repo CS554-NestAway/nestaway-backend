@@ -68,6 +68,8 @@ export const updateHouse = async (id, houseDetails) => {
   if (typeof houseDetails !== "object") throw "House details must be an object";
 
   try {
+    houseDetails.updatedAt = new Date();
+
     validateHouseDetailsOnCreate(houseDetails);
 
     const houseCollection = await houses();
@@ -84,7 +86,7 @@ export const updateHouse = async (id, houseDetails) => {
     throw e;
   }
 
-  return await this.getHouseById(id);
+  return await getHouseById(id);
 };
 
 export const updatePhotos = async (id, photos) => {
