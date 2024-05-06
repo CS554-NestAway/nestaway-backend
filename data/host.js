@@ -42,6 +42,7 @@ export const addHouse = async (houseDetails) => {
     houseDetails.createdAt = new Date();
     houseDetails.updatedAt = new Date();
     houseDetails.isDeleted = false;
+    houseDetails.isActive = true;
     houseDetails.isApproved = false;
 
     houseDetails = validateHouseDetailsOnCreate(houseDetails);
@@ -230,4 +231,75 @@ export const getUniqueStates = async () => {
   const states = await houseCollection.distinct("address.state");
 
   return states;
+};
+
+export const gethousesbyhostid = async (hostId) => {
+  const houseCollection = await houses();
+  hostId = getMongoID(hostId);
+  const housesArray = await houseCollection.find({ hostId: hostId }).toArray();
+
+  return housesArray;
+};
+
+export const toggleHouseApproveStatus = async (id) => {
+  id = getMongoID(id);
+
+  const houseCollection = await houses();
+
+  const houseDetails = await houseCollection.findOne({
+    _id: id,
+  });
+  if (houseDetails === null) throwErrorWithStatus(404, "House not found");
+
+  const updatedHouse = await houseCollection.updateOne(
+    { _id: id },
+    { $set: { isApproved: !houseDetails.isApproved } }
+  );
+
+  if (updatedHouse.modifiedCount === 0)
+    throwErrorWithStatus(500, "Could not update house");
+
+  return await getHouseById(id);
+};
+
+export const toggleHouseDeleteStatus = async (id) => {
+  id = getMongoID(id);
+
+  const houseCollection = await houses();
+
+  const houseDetails = await houseCollection.findOne({
+    _id: id,
+  });
+  if (houseDetails === null) throwErrorWithStatus(404, "House not found");
+
+  const updatedHouse = await houseCollection.updateOne(
+    { _id: id },
+    { $set: { isDeleted: !houseDetails.isDeleted } }
+  );
+
+  if (updatedHouse.modifiedCount === 0)
+    throwErrorWithStatus(500, "Could not update house");
+
+  return await getHouseById(id);
+};
+
+export const toggleHouseActiveStatus = async (id) => {
+  id = getMongoID(id);
+
+  const houseCollection = await houses();
+
+  const houseDetails = await houseCollection.findOne({
+    _id: id,
+  });
+  if (houseDetails === null) throwErrorWithStatus(404, "House not found");
+
+  const updatedHouse = await houseCollection.updateOne(
+    { _id: id },
+    { $set: { isActive: !houseDetails.isActive } }
+  );
+
+  if (updatedHouse.modifiedCount === 0)
+    throwErrorWithStatus(500, "Could not update house");
+
+  return await getHouseById(id);
 };
