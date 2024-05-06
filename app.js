@@ -3,7 +3,7 @@ import "dotenv/config";
 import configRoutesFunction from "./routes/index.js";
 import { dbConnection } from "./config/mongoConnection.js";
 import session from "express-session";
-import * as t from "./test.js";
+// import * as t from "./test.js";
 import cors from "cors";
 import fbconfig from "./FirebaseConfig.js";
 import { initializeApp } from "firebase/app";
