@@ -12,7 +12,7 @@
       "Studio",
       "Other"
     ],
-    "Address": {
+    "address": {
       "country": "United States",
       "country_code": "us",
       "state": "New Jersey",
@@ -59,8 +59,8 @@
       "changeDays": 7
     },
     "rules": {
-      "checkIn": "3:00 PM",
-      "checkOut": "11:00 AM",
+      "checkIn": 15,
+      "checkOut": 11,
       "smoking": false,
       "pets": false
     },
