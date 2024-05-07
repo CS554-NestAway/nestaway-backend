@@ -7,6 +7,7 @@ import {
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
 import { ObjectId } from "mongodb";
+import { checkIfAdmin } from "../data/admin.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -92,5 +93,7 @@ router.delete(
     }
   }
 );
+
+router.get(":id/approve", checkIfAdmin, async (req, res) => {});
 
 export default router;

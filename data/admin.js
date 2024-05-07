@@ -7,7 +7,7 @@ export const checkIfAdmin = async (uid) => {
 
   const adminCollection = await admins();
 
-  const admin = await adminCollection.findOne({ uid });
+  const admin = await adminCollection.findOne({ uid: uid });
 
   if (!admin) {
     return false;
