@@ -1,14 +1,11 @@
-import { createTransport } from 'nodemailer';
-require('dotenv').config(); 
+import AWS from 'aws-sdk';
 
-const transporter = createTransport({
-  host: process.env.SMTP_SERVER_HOST,
-  port: process.env.SMTP_SERVER_PORT,
-  secure: true, 
-  auth: {
-    user: process.env.SMTP_USERNAME,
-    pass: process.env.SMTP_PASSWORD,
-  },
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_SES_REGION,
 });
+
+const transporter = new AWS.SES({ apiVersion: '2010-12-01' });
 
 export default transporter;
