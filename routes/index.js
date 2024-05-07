@@ -7,8 +7,11 @@
 */
 
 import hostRoutes from "./host.js";
+import guestRoutes from "./guest.js";
+
 const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
+  app.use("/guest", guestRoutes);
 
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
