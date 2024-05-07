@@ -4,27 +4,31 @@ import { getAuth } from "firebase-admin/auth";
 
 // import { auth } from "firebase-admin";
 export const checkIfHouseBelongsToHost = async (req, res, next) => {
-  // if (!req.params.id) {
-  //   return res.status(400).json({ error: "You must provide an id" });
-  // }
-  next();
-  //   if (isAdmin(req.user.role)) {
-  // if (isAdmin("a")) {
-  //   next();
-  // }
+  if (!req.user) {
+    return res
+      .status(401)
+      .json({ error: "You must be logged in to perform this action" });
+  }
 
-  // try {
-  //   const house = await hostDataFunctions.getHouseById(req.params.id);
-  //   if (house.hostId !== req.session.user._id) {
-  //     return res
-  //       .status(403)
-  //       .json({ error: "You are not authorized to perform this action" });
-  //   }
-  // } catch (e) {
-  //   return res.status(400).json({ error: e });
-  // }
+  if (isAdmin(req.user)) {
+    next();
+  } else {
+    const hostId = req.user.uid;
 
-  // next();
+    const houseId = req.params.id;
+
+    const house = await hostDataFunctions.getHouseById(houseId);
+
+    if (!house) {
+      return res.status(404).json({ error: "House not found" });
+    }
+
+    if (house.hostId !== hostId) {
+      return res.status(403).json({ error: "You are not authorized" });
+    }
+
+    next();
+  }
 };
 
 export const isAdmin = (role) => {
@@ -44,4 +48,13 @@ export const validateUserToken = async (req, res, next) => {
     req.user = null;
     next();
   }
+};
+
+export const checkIfLoggedIn = (req, res, next) => {
+  if (!req.user) {
+    return res
+      .status(401)
+      .json({ error: "You must be logged in to perform this action" });
+  }
+  next();
 };
