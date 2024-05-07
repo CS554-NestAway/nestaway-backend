@@ -37,14 +37,11 @@ export const validateUserToken = async (req, res, next) => {
     let token = req.headers.authorization;
     token = token.split(" ")[1];
 
-    if (!token) {
-      return res.status(401).json({ error: "You must provide a token" });
-    }
-
     const decodedToken = await getAuth().verifyIdToken(token);
     req.user = decodedToken;
     next();
   } catch (e) {
     req.user = null;
+    next();
   }
 };

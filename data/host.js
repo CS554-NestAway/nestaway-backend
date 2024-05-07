@@ -14,6 +14,7 @@ export const getAllHouses = async (projections) => {
     .project(
       projections || {
         name: 1,
+        title: 1,
         houseType: 1,
         address: 1,
         photos: 1,

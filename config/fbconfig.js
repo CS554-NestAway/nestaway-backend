@@ -1,5 +1,3 @@
-import { initializeApp } from "firebase-admin/app";
-
 const firebaseConfig = {
   apiKey: process.env.FirebaseApiKey,
   authDomain: process.env.FirebaseAuthDomain,
@@ -10,6 +8,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
 
-export default firebaseApp;
+export default firebaseConfig;
