@@ -1,7 +1,7 @@
 import * as hostDataFunctions from "../data/host.js";
 import firebaseApp from "../config/fbconfig.js";
 import { getAuth } from "firebase-admin/auth";
-
+import { checkIfAdmin } from "../data/admin.js";
 // import { auth } from "firebase-admin";
 export const checkIfHouseBelongsToHost = async (req, res, next) => {
   if (!req.user) {
@@ -10,7 +10,8 @@ export const checkIfHouseBelongsToHost = async (req, res, next) => {
       .json({ error: "You must be logged in to perform this action" });
   }
 
-  if (isAdmin(req.user)) {
+  if (checkIfAdmin(req.user.uid)) {
+    console.log("admin");
     next();
   } else {
     const hostId = req.user.uid;
@@ -29,11 +30,6 @@ export const checkIfHouseBelongsToHost = async (req, res, next) => {
 
     next();
   }
-};
-
-export const isAdmin = (role) => {
-  //   return role === "admin";
-  return false;
 };
 
 export const validateUserToken = async (req, res, next) => {

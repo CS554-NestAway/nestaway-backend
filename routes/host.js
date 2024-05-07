@@ -22,6 +22,10 @@ router.post("/", checkIfLoggedIn, async (req, res) => {
     const houseDetails = req.body;
     console.log(houseDetails);
     houseDetails.hostId = req.user.uid;
+    houseDetails.hostName = req.user.name;
+    houseDetails.hostImage = req.user.picture;
+    houseDetails.hostEmail = req.user.email;
+
     const house = await hostDataFunctions.addHouse(houseDetails);
     res.json(house);
   } catch (e) {
