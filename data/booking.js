@@ -75,7 +75,7 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
 
 export const getAllBookingsByUserId = async (id) => {
     const houseCollection = await houses();
-    const housesArray = await houseCollection.find({ hostId: "663281365a2866a33ec41e0e" }).toArray();
+    const housesArray = await houseCollection.find({ hostId: id }).toArray();
     let bookingArray = [];
     housesArray.map((house) => {
         house.bookings.map((booking) => {
