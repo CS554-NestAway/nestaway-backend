@@ -210,7 +210,7 @@ export const filterHousesByAvailability = async (
       availableHouses.push(house);
     }
   }
-  console.log(availableHouses);
+  // console.log(availableHouses);
   return availableHouses;
 };
 

@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
 router.post("/", checkIfLoggedIn, async (req, res) => {
   try {
     const houseDetails = req.body;
-    console.log(houseDetails);
+    // console.log(houseDetails);
     houseDetails.hostId = req.user.uid;
     houseDetails.hostName = req.user.name;
     houseDetails.hostImage = req.user.picture;
