@@ -177,6 +177,8 @@ export const isValidImageURL = (ImageUrl) => {
 
 export const validateHouseDetailsOnUpdate = (houseDetails) => {
   try {
+    houseDetails.isApproved = false;
+    houseDetails.updatedAt = new Date();
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
