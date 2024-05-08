@@ -43,8 +43,9 @@ export const overlappingBooking = async (houseId, checkIn, checkOut) => {
         const newCheckOut = new Date(checkOut);
 
         return (
-            (newCheckIn < existingCheckOut && newCheckOut > existingCheckIn) || // Check for overlapping dates
-            (newCheckIn.getTime() === existingCheckIn.getTime() && newCheckOut.getTime() === existingCheckOut.getTime()) // Check for exact same dates
+            (newCheckIn >= existingCheckIn && newCheckIn <= existingCheckOut) ||
+            (newCheckOut >= existingCheckIn && newCheckOut <= existingCheckOut) ||
+            (newCheckIn <= existingCheckIn && newCheckOut >= existingCheckOut)
         );
     });
     if (overlapping) {
