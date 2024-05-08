@@ -3,6 +3,7 @@ import * as hostDataFunctions from "../data/host.js";
 import {
   checkIfLoggedIn,
   checkIfBookingBelongsToGuest,
+  checkIfHouseBelongsToHost,
 } from "../middlewares/middleware.js";
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";

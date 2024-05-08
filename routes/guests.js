@@ -4,12 +4,19 @@ import {
   checkIfBookingBelongsToGuest,
   checkIfLoggedIn,
 } from "../middlewares/middleware.js";
+import moment from "moment";
 
 const router = Router();
 
 router.get("/bookings", checkIfLoggedIn, async (req, res) => {
   const data = await getBookings(req.user.uid);
-  return res.json(data);
+  return res.json([
+    {
+      id: "booking id",
+      checkIn: moment().format("MM/DD/YYYY"),
+      checkOut: moment().add(1, "days").format("MM/DD/YYYY"),
+    },
+  ]);
 });
 
 router
