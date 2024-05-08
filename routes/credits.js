@@ -71,4 +71,20 @@ router.post("/checkCredits", checkIfLoggedIn, async (req, res) => {
     }
   }
 });
+
+router.post("/returnCredits", checkIfLoggedIn, async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const creditsToAdd = req.body.creditsToAdd;
+    const credit = await creditDataFunctions.addCredits(userId, creditsToAdd);
+    res.json(credit);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
 export default router;

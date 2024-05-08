@@ -15,3 +15,10 @@ export const getMongoID = (id) => {
     throw "Invalid ID provided";
   }
 };
+
+export const computeDaysByCheckInAndCheckOut = (checkIn, checkOut) => {
+  const differenceInTime = new Date(checkOut).getTime() - new Date(checkIn).getTime();
+  const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+  const numberOfDays = Math.round(differenceInDays);
+  return numberOfDays;
+}
