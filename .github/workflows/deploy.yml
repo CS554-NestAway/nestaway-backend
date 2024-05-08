@@ -34,6 +34,7 @@ jobs:
             FIREBASESTORAGEBUCKET=${{ secrets.FIREBASESTORAGEBUCKET }}
             MONGOSERVERURL=${{ secrets.MONGOSERVERURL }}
             PORT=${{ secrets.PORT }}
+            VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}
 
       - name: ec2
         uses: appleboy/ssh-action@v1.0.3
