@@ -20,9 +20,12 @@ export const addCredits = async (uid, creditsToAdd) => {
     if (!credit) {
         await creditCollection.insertOne({ uid: uid, credits: creditsToAdd });
     } else {
+        const fixedCredits = Number(credit.credits.toFixed(2));
+        const fixedCreditsToDeduct = Number(creditsToAdd.toFixed(2));
+        const creditsAfterAdd = fixedCredits + fixedCreditsToDeduct;
         await creditCollection.updateOne(
             { uid: uid },
-            { $inc: { credits: creditsToAdd } }
+            { $set: { credits: Number(creditsAfterAdd.toFixed(2)) } }
         );
     }
 
