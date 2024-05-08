@@ -13,12 +13,25 @@ const firebaseApp = initializeApp(firebaseConfig);
 const databaseconnection = dbConnection();
 const app = express();
 
+
+
+app.use((req, res, next) => {
+  const currentDatetime = new Date();
+  const formattedDate = `${currentDatetime.getFullYear()}-${currentDatetime.getMonth() + 1}-${currentDatetime.getDate()} ${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
+  const method = req.method;
+  const url = req.url;
+  const status = res.statusCode;
+  console.log(`[${formattedDate}] ${method}:${url} ${status}`);
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT"],
+
+    origin: ["http://localhost:5173", process.env.VITE_BASE_URL],
+    methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
