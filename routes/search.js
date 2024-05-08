@@ -63,8 +63,8 @@ router.post("/", async (req, res) => {
     }
     if (!state && !lat && !lng && !checkIn && !checkOut) {
       lat = 37.7749;
-      lng = -122.4194;
-      radius = 10000;
+      lng = 80.4194;
+      radius = 10000000;
     }
 
     const houses = await hostDataFunctions.getHouseQuery({
