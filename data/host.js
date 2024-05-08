@@ -444,7 +444,7 @@ export const getUpcomingPendingHosting = async (houseId) => {
   const currentDate = new Date();
 
   house.bookings = house.bookings.filter((booking) => {
-    return booking.checkIn > currentDate && booking.status == "pending";
+    return booking.status == "pending";
   });
 
   // house.bookings.map(async (booking) => {
