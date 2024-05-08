@@ -2,8 +2,7 @@ import express from "express";
 import "dotenv/config";
 import configRoutesFunction from "./routes/index.js";
 import { dbConnection } from "./config/mongoConnection.js";
-// import session from "express-session";
-// import * as t from "./test.js";
+
 import cors from "cors";
 import firebaseConfig from "./config/fbconfig.js";
 import { validateUserToken } from "./middlewares/middleware.js";
@@ -29,12 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
+
     origin: ["http://localhost:5173", process.env.VITE_BASE_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "requestcount", "Authorization"],
   })
 );
 app.use(validateUserToken);
+
 configRoutesFunction(app);
 
 app.listen(process.env.PORT || 8080, () => {
