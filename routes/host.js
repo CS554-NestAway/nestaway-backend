@@ -79,7 +79,7 @@ router.get("/getHosting", checkIfLoggedIn, async (req, res) => {
     res.json({
       current: current,
       upcomingApproved: upcomingApproved,
-      upcomingPending: upcomingPending,
+      pending: upcomingPending,
     });
   } catch (e) {
     if (e.status) {
