@@ -38,8 +38,8 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
     if (house === null) throw "No house with that id";
 
     const { userId, checkIn, checkOut } = bookingInfo;
-    validateBooking.isDateValid(checkIn);
-    validateBooking.isDateValid(checkOut);
+    // validateBooking.isDateValid(checkIn);
+    // validateBooking.isDateValid(checkOut);
     validateBooking.validateCheckInAndCheckOutTime(checkIn, checkOut);
     await validateBooking.overlappingBooking(id, checkIn, checkOut);
     const numbersOfDaysLiving = helper.computeDaysByCheckInAndCheckOut(checkIn, checkOut);
