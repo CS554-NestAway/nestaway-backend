@@ -143,4 +143,6 @@ router.get(":id/reject", checkIfAdmin, async (req, res) => {
   }
 });
 
+router.get("/currentHost", checkIfLoggedIn, async (req, res) => {});
+
 export default router;

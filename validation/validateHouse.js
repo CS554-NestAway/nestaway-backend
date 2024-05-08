@@ -179,6 +179,7 @@ export const validateHouseDetailsOnUpdate = (houseDetails) => {
   try {
     houseDetails.isApproved = false;
     houseDetails.updatedAt = new Date();
+    houseDetails.isDeleted = false;
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
