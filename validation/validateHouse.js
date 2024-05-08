@@ -14,8 +14,7 @@ export const validateHouseDetailsOnCreate = (houseDetails) => {
   try {
     if (!houseDetails.hostId)
       throwErrorWithStatus(400, "You must provide a hostId");
-    if (!ObjectId.isValid(houseDetails.hostId))
-      throwErrorWithStatus(400, "Invalid hostId");
+
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
@@ -178,10 +177,6 @@ export const isValidImageURL = (ImageUrl) => {
 
 export const validateHouseDetailsOnUpdate = (houseDetails) => {
   try {
-    if (!houseDetails.hostId)
-      throwErrorWithStatus(400, "You must provide a hostId");
-    if (!ObjectId.isValid(houseDetails.hostId))
-      throwErrorWithStatus(400, "Invalid hostId");
     checkifObjectFollowsSchema(houseDetails, houseSchema);
     checkifObjectFollowsSchema(houseDetails.address, addressSchema);
 
@@ -258,8 +253,8 @@ export const validateHouseDetailsOnUpdate = (houseDetails) => {
       description: houseDetails.description,
       isInstantBooking: houseDetails.isInstantBooking,
       price: houseDetails.price,
+      updatedAt: new Date(),
       currency: houseDetails.currency,
-      hostId: houseDetails.hostId,
     };
 
     return validHouse;

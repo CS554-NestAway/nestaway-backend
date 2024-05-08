@@ -72,6 +72,7 @@ router.put(
         req.params.id,
         houseDetails
       );
+
       res.json(house);
     } catch (e) {
       console.log(e);

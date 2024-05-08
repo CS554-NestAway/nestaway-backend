@@ -67,14 +67,14 @@ export const addHouse = async (houseDetails) => {
 
 export const updateHouse = async (id, houseDetails) => {
   if (!id) throw "You must provide an id to search for";
-  if (ObjectId.isValid(id) === false) throw "Invalid ID provided";
+
   if (!houseDetails) throw "You must provide house details";
   if (typeof houseDetails !== "object") throw "House details must be an object";
 
   try {
     // houseDetails.updatedAt = new Date();
 
-    validateHouseDetailsOnUpdate(houseDetails);
+    houseDetails = validateHouseDetailsOnUpdate(houseDetails);
 
     const houseCollection = await houses();
 
