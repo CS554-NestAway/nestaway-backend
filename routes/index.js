@@ -10,14 +10,19 @@ import hostRoutes from "./host.js";
 import searchRoutes from "./search.js";
 import creditRoutes from "./credits.js";
 import houseRoutes from "./house.js";
-const constructorMethod = (app) => {
-  app.use("/host", hostRoutes);
-  app.use("/search", searchRoutes);
-  app.use("/house", houseRoutes);
-  app.use("/credits", creditRoutes);
-  app.use("*", (req, res) => {
-    return res.status(404).json({ error: "Not found" });
-  });
-};
 
+let constructorMethod;
+try {
+  constructorMethod = (app) => {
+    app.use("/host", hostRoutes);
+    app.use("/search", searchRoutes);
+    app.use("/house", houseRoutes);
+    app.use("/credits", creditRoutes);
+    app.use("*", (req, res) => {
+      return res.status(404).json({ error: "Not found" });
+    });
+  };
+} catch (e) {
+  app.use(res.status(400).json({ error: e.message }));
+}
 export default constructorMethod;

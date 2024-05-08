@@ -319,3 +319,37 @@ export const toggleHouseActiveStatus = async (id) => {
 
   return await getHouseById(id);
 };
+
+export const approveHouse = async (houseId) => {
+  const houseCollection = await houses();
+
+  const house = await houseCollection.findOne({ _id: getMongoID(houseId) });
+
+  if (!house) {
+    throw "House not found";
+  }
+
+  await houseCollection.updateOne(
+    { _id: getMongoID(houseId) },
+    { $set: { isApproved: true } }
+  );
+
+  return true;
+};
+
+export const rejectHouse = async (houseId) => {
+  const houseCollection = await houses();
+
+  const house = await houseCollection.findOne({ _id: getMongoID(houseId) });
+
+  if (!house) {
+    throw "House not found";
+  }
+
+  await houseCollection.updateOne(
+    { _id: getMongoID(houseId) },
+    { $set: { isDeleted: true } }
+  );
+
+  return true;
+};

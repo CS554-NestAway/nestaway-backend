@@ -11,12 +11,20 @@ import { checkIfAdmin } from "../data/admin.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const projections = req.query.projections
-    ? JSON.parse(req.query.projections)
-    : null;
+  try {
+    const projections = req.query.projections
+      ? JSON.parse(req.query.projections)
+      : null;
 
-  const houses = await hostDataFunctions.getAllHouses();
-  res.json(houses);
+    const houses = await hostDataFunctions.getAllHouses();
+    res.json(houses);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
 });
 router.post("/", checkIfLoggedIn, async (req, res) => {
   try {
@@ -94,6 +102,44 @@ router.delete(
   }
 );
 
-router.get(":id/approve", checkIfAdmin, async (req, res) => {});
+router.get(":id/toggleActive", checkIfHouseBelongsToHost, async (req, res) => {
+  try {
+    const house = await hostDataFunctions.toggleHouseActiveStatus(
+      req.params.id
+    );
+    res.json(house);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+router.get(":id/approve", checkIfAdmin, async (req, res) => {
+  try {
+    const house = await hostDataFunctions.approveHouse(req.params.id);
+    res.json(house);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
+router.get(":id/reject", checkIfAdmin, async (req, res) => {
+  try {
+    const house = await hostDataFunctions.rejectHouse(req.params.id);
+    res.json(house);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
 
 export default router;
