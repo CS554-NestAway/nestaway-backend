@@ -168,7 +168,7 @@ export const isValidImageURL = (ImageUrl) => {
   if (url.host === "") {
     return false;
   }
-  if (!/.(jpeg|jpg|png)$/i.test(url.pathname)) {
+  if (!/.(jpeg|jpg|png|webp)$/i.test(url.pathname)) {
     return false;
   }
 
