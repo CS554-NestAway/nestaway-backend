@@ -9,10 +9,12 @@
 import hostRoutes from "./host.js";
 import searchRoutes from "./search.js";
 import creditRoutes from "./credits.js";
+import guestRoutes from "./guests.js";
 const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
   app.use("/search", searchRoutes);
   app.use("/credits", creditRoutes);
+  app.use("/guest", guestRoutes);
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
   });

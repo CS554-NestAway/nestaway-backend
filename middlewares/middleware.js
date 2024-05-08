@@ -2,6 +2,7 @@ import * as hostDataFunctions from "../data/host.js";
 import firebaseApp from "../config/fbconfig.js";
 import { getAuth } from "firebase-admin/auth";
 import { checkIfAdmin } from "../data/admin.js";
+import * as guestDF from "../data/guest.js";
 // import { auth } from "firebase-admin";
 export const checkIfHouseBelongsToHost = async (req, res, next) => {
   if (!req.user) {
@@ -53,4 +54,29 @@ export const checkIfLoggedIn = (req, res, next) => {
       .json({ error: "You must be logged in to perform this action" });
   }
   next();
+};
+
+export const checkIfBookingBelongsToGuest = async (req, res, next) => {
+  if (!req.user) {
+    return res
+      .status(401)
+      .json({ error: "You must be logged in to perform this action" });
+  }
+
+  if (checkIfAdmin(req.user.uid)) {
+    console.log("admin");
+    next();
+  } else {
+    const guestId = req.user.uid;
+
+    const bookingId = req.params.bookingId;
+
+    const booking = await guestDF.getBooking(guestId, bookingId);
+
+    if (!booking) {
+      return res.status(403).json({ error: "You are not authorized" });
+    }
+
+    next();
+  }
 };

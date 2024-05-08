@@ -2,7 +2,7 @@ import express from "express";
 import * as hostDataFunctions from "../data/host.js";
 import {
   checkIfLoggedIn,
-  checkIfHouseBelongsToHost,
+  checkIfBookingBelongsToGuest,
 } from "../middlewares/middleware.js";
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
@@ -55,7 +55,7 @@ router.get("/:id", async (req, res) => {
 router.put(
   "/:id",
   checkIfLoggedIn,
-  checkIfHouseBelongsToHost,
+  checkIfBookingBelongsToGuest,
   async (req, res) => {
     try {
       const houseDetails = req.body;
@@ -79,7 +79,7 @@ router.put(
 router.delete(
   "/:id",
   checkIfLoggedIn,
-  checkIfHouseBelongsToHost,
+  checkIfBookingBelongsToGuest,
   async (req, res) => {
     try {
       await hostDataFunctions.deleteHouse(req.params.id);
