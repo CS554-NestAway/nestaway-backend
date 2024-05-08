@@ -22,6 +22,16 @@ app.use(
     maxAge: 86400000,
   })
 );
+
+app.use((req, res, next) => {
+  const currentDatetime = new Date();
+  const formattedDate = `${currentDatetime.getFullYear()}-${currentDatetime.getMonth() + 1}-${currentDatetime.getDate()} ${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
+  const method = req.method;
+  const url = req.url;
+  const status = res.statusCode;
+  console.log(`[${formattedDate}] ${method}:${url} ${status}`);
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(

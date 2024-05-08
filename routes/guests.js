@@ -1,16 +1,19 @@
 import { Router } from "express";
-import { cancel, changeDate, getBookings } from "../data/guest";
-import { checkIfBookingBelongsToGuest } from "../middlewares/middleware";
+import { cancel, changeDate, getBookings } from "../data/guest.js";
+import {
+  checkIfBookingBelongsToGuest,
+  checkIfLoggedIn,
+} from "../middlewares/middleware.js";
 
 const router = Router();
 
-router.get("bookings", async (req, res) => {
+router.get("/bookings", checkIfLoggedIn, async (req, res) => {
   const data = await getBookings(req.user.uid);
   return res.json(data);
 });
 
 router
-  .route("bookings/:bookingId")
+  .route("/bookings/:bookingId")
   .post(checkIfBookingBelongsToGuest, async (req, res) => {
     const bookingId = req.params;
     const { checkIn, checkOut } = req.body;
