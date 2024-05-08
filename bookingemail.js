@@ -11,7 +11,7 @@ const SES_CONFIG = {
 
 const sesClient = new SESClient(SES_CONFIG);
 
- export const sendEmail = async (recipientEmail, name) => {
+ export const sendbookingEmail = async (recipientEmail, name) => {
   let params = {
     Source: process.env.AWS_SES_SENDER,
     Destination: {
@@ -49,7 +49,6 @@ const sesClient = new SESClient(SES_CONFIG);
     console.error(error);
   }
 }
-
 
 // Add this to the client component.
 // async function sendBookingEmail(email, displayName) {
