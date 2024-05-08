@@ -8,6 +8,8 @@ import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
 import { ObjectId } from "mongodb";
 import { checkIfAdmin } from "../data/admin.js";
+
+import { getAuth } from "firebase-admin/auth";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -46,7 +48,47 @@ router.post("/", checkIfLoggedIn, async (req, res) => {
     }
   }
 });
+router.get("/getHosting", checkIfLoggedIn, async (req, res) => {
+  try {
+    const houses = await hostDataFunctions.gethousesbyhostid(req.user.uid);
+    let current = [];
+    let upcomingApproved = [];
+    let upcomingPending = [];
+    for (let i = 0; i < houses.length; i++) {
+      let currenthosting = await hostDataFunctions.getCurrentHosting(
+        houses[i]._id
+      );
+      if (currenthosting) {
+        current.push(currenthosting);
+      }
+      let upcominghosting = await hostDataFunctions.getUpcomingApprovedHosting(
+        houses[i]._id
+      );
 
+      if (upcominghosting) {
+        upcomingApproved.push(upcominghosting);
+      }
+
+      let upcomingPendinghosting =
+        await hostDataFunctions.getUpcomingPendingHosting(houses[i]._id);
+
+      if (upcomingPendinghosting) {
+        upcomingPending.push(upcomingPendinghosting);
+      }
+    }
+    res.json({
+      current: current,
+      upcomingApproved: upcomingApproved,
+      upcomingPending: upcomingPending,
+    });
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
 router.get("/:id", async (req, res) => {
   try {
     const house = await hostDataFunctions.getHouseById(req.params.id);
@@ -142,7 +184,5 @@ router.get(":id/reject", checkIfAdmin, async (req, res) => {
     }
   }
 });
-
-router.get("/currentHost", checkIfLoggedIn, async (req, res) => {});
 
 export default router;

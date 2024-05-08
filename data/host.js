@@ -5,6 +5,8 @@ import {
   validateHouseDetailsOnCreate,
   validateHouseDetailsOnUpdate,
 } from "../validation/validateHouse.js";
+
+import { getAuth } from "firebase-admin/auth";
 import { throwErrorWithStatus } from "../helper.js";
 export const getAllHouses = async (projections) => {
   const houseCollection = await houses();
@@ -217,7 +219,7 @@ export const filterHousesByAvailability = async (
   return availableHouses;
 };
 
-export const isHouseAvailable = async (houseId, startDate, endDate) => {
+export const isHouseAvailable = async (houseId, checkIn, checkOut) => {
   const house = await getHouseById(houseId);
   if (!house || house.isDeleted || !house.isApproved) {
     return false;
@@ -230,9 +232,9 @@ export const isHouseAvailable = async (houseId, startDate, endDate) => {
 
   for (const booking of bookings) {
     if (
-      (startDate >= booking.startDate && startDate <= booking.endDate) ||
-      (endDate >= booking.startDate && endDate <= booking.endDate) ||
-      (startDate <= booking.startDate && endDate >= booking.endDate)
+      (checkIn >= booking.checkIn && checkIn <= booking.checkOut) ||
+      (checkOut >= booking.checkIn && checkOut <= booking.checkOut) ||
+      (checkIn <= booking.checkIn && checkOut >= booking.checkOut)
     ) {
       return false;
     }
@@ -355,4 +357,101 @@ export const rejectHouse = async (houseId) => {
   );
 
   return true;
+};
+
+export const getCurrentHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return (
+      booking.checkIn <= currentDate &&
+      currentDate <= booking.checkOut &&
+      booking.status == "approved"
+    );
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
+};
+
+export const getUpcomingApprovedHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return booking.checkIn > currentDate && booking.status == "approved";
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
+};
+
+export const getUpcomingPendingHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return booking.checkIn > currentDate && booking.status == "pending";
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
 };
