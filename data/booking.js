@@ -72,3 +72,41 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
     if (!updateInfo) throw "Add booking failed";
     return updateInfo;
 }
+
+export const getAllBookingsByUserId = async (id) => {
+    const houseCollection = await houses();
+    const housesArray = await houseCollection.find({ hostId: "663281365a2866a33ec41e0e" }).toArray();
+    let bookingArray = [];
+    housesArray.map((house) => {
+        house.bookings.map((booking) => {
+            bookingArray.push({
+                houseId: house._id.toString(),
+                booking: booking
+            });
+        })
+    })
+    bookingArray = bookingArray.filter((booking) => booking.booking.status === "pending");
+    return bookingArray;
+}
+
+export const toggleBookingStatus = async (houseId, bookingId, status) => {
+    const houseCollection = await houses();
+    const house = await houseCollection.findOne({ _id: getMongoID(houseId) });
+    const bookingArray = house.bookings;
+    bookingArray.map((booking) => {
+        if (booking.bookingId.toString() === bookingId) {
+            return booking.status = status;
+        }
+    })
+    const updateInfo = await houseCollection.findOneAndUpdate(
+        { _id: getMongoID(houseId) },
+        {
+            $set: {
+                bookings: bookingArray
+            }
+        },
+        { returnDocument: 'after' }
+    );
+    if (!updateInfo) throw "Update booking status failed";
+    return updateInfo;
+};
