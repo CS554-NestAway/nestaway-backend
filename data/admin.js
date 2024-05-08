@@ -16,6 +16,21 @@ export const checkIfAdmin = async (req, res, next) => {
   next();
 };
 
+export const checkAdmin = async (req, res, next) => {
+  if (!req.user.uid) {
+    return { isAdmin: false };
+  }
+
+  const adminCollection = await admins();
+
+  const admin = await adminCollection.findOne({ uid: req.user.uid });
+
+  if (!admin) {
+    return { isAdmin: false };
+  }
+  return { isAdmin: true };
+};
+
 export const getPendingHouses = async () => {
   const houseCollection = await houses();
   const housesArray = await houseCollection

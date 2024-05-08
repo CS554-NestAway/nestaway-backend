@@ -7,7 +7,7 @@ import {
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
 import { ObjectId } from "mongodb";
-import { checkIfAdmin } from "../data/admin.js";
+import { checkAdmin, checkIfAdmin } from "../data/admin.js";
 
 import { getAuth } from "firebase-admin/auth";
 const router = express.Router();
@@ -20,6 +20,19 @@ router.get("/", async (req, res) => {
 
     const houses = await hostDataFunctions.getAllHouses();
     res.json(houses);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
+router.get("/checkadmin", checkIfLoggedIn, async (req, res) => {
+  try {
+    const result = await checkAdmin(req, res);
+    return res.status(200).json(result);
   } catch (e) {
     if (e.status) {
       res.status(e.status).json({ error: e.message });
