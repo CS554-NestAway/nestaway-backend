@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 import configRoutesFunction from "./routes/index.js";
 import { dbConnection } from "./config/mongoConnection.js";
-import session from "express-session";
+// import session from "express-session";
 // import * as t from "./test.js";
 import cors from "cors";
 import firebaseConfig from "./config/fbconfig.js";
@@ -13,16 +13,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 const databaseconnection = dbConnection();
 const app = express();
 
-app.use(
-  session({
-    name: "AuthSession",
-    secret: "This is a secret",
-    saveUninitialized: false,
-    resave: false,
-    maxAge: 86400000,
-  })
-);
-
 app.use((req, res, next) => {
   const currentDatetime = new Date();
   const formattedDate = `${currentDatetime.getFullYear()}-${currentDatetime.getMonth() + 1}-${currentDatetime.getDate()} ${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
@@ -32,12 +22,13 @@ app.use((req, res, next) => {
   console.log(`[${formattedDate}] ${method}:${url} ${status}`);
   next();
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
