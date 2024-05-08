@@ -170,7 +170,7 @@ export const getHouseQuery = async ({
 }) => {
   const houseCollection = await houses();
   let housesData;
-  if (state) {
+  if (state != "" && state != undefined) {
     housesData = await houseCollection
       .find({ "address.state": state })
       .toArray();
@@ -184,6 +184,12 @@ export const getHouseQuery = async ({
             $maxDistance: radius,
           },
         },
+      })
+      .project({
+        title: 1,
+        address: 1,
+        price: 1,
+        photos: 1,
       })
       .toArray();
   }
