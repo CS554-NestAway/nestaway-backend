@@ -47,7 +47,7 @@ export const addBookingByHouseId = async (id, bookingInfo) => {
     const st = numbersOfDaysLiving * price;
     const t = st * 0.06625;
     const sf = st * 0.142;
-    const tp = st + t + sf;
+    const tp = st + t + sf + 100;
     const totalPrice = parseFloat(tp.toFixed(2));
     const newBooking = {
         bookingId: new ObjectId(),
