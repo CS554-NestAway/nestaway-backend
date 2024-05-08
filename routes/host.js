@@ -28,6 +28,37 @@ router.get("/", async (req, res) => {
     }
   }
 });
+
+router.get("/pending", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
+  try {
+    if (req.user.admin) {
+      const houses = await hostDataFunctions.getAllPendingHouses();
+      res.json({ isAdmin: true, houses });
+    } else {
+      res.json({ isAdmin: false });
+    }
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
+router.get("/housesbyhost", checkIfLoggedIn, async (req, res) => {
+  try {
+    const houses = await hostDataFunctions.getallhousesbyhostid(req.user.uid);
+    res.json(houses);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
 router.post("/", checkIfLoggedIn, async (req, res) => {
   try {
     const houseDetails = req.body;
@@ -162,7 +193,7 @@ router.get(":id/toggleActive", checkIfHouseBelongsToHost, async (req, res) => {
     }
   }
 });
-router.get(":id/approve", checkIfAdmin, async (req, res) => {
+router.get("/approve/:id", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
   try {
     const house = await hostDataFunctions.approveHouse(req.params.id);
     res.json(house);
@@ -175,7 +206,7 @@ router.get(":id/approve", checkIfAdmin, async (req, res) => {
   }
 });
 
-router.get(":id/reject", checkIfAdmin, async (req, res) => {
+router.get("/reject/:id", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
   try {
     const house = await hostDataFunctions.rejectHouse(req.params.id);
     res.json(house);
