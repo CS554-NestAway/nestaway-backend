@@ -240,7 +240,9 @@ export const isHouseAvailable = async (houseId, startDate, endDate) => {
 
 export const getUniqueStates = async () => {
   const houseCollection = await houses();
-  const states = await houseCollection.distinct("address.state");
+  const states = await houseCollection.distinct("address.state", {
+    isApproved: true,
+  });
 
   return states;
 };
