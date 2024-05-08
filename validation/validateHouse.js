@@ -254,6 +254,7 @@ export const validateHouseDetailsOnUpdate = (houseDetails) => {
       isInstantBooking: houseDetails.isInstantBooking,
       price: houseDetails.price,
       updatedAt: new Date(),
+      isApproved: false,
       currency: houseDetails.currency,
     };
 

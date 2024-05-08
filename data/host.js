@@ -21,6 +21,9 @@ export const getAllHouses = async (projections) => {
         price: 1,
         currency: 1,
         rating: 1,
+        isApproved: 1,
+        isActive: 1,
+        isDeleted: 1,
       }
     )
     .toArray();
