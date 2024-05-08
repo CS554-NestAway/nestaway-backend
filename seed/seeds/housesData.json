@@ -1,363 +1,6 @@
 [{
   "_id": {
-    "$oid": "623b2b26a7e568c82047c037"
-  },
-  "houseType": "Cabin",
-  "features": {
-    "maxGuests": 4,
-    "bedrooms": 2,
-    "beds": 2,
-    "bathrooms": 1
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": true,
-    "ac": true,
-    "kitchen": true,
-    "parking": true,
-    "pool": false,
-    "gym": false,
-    "hotTub": false,
-    "fireplace": false,
-    "washer": true,
-    "dryer": true,
-    "heating": true,
-    "smokeDetector": true,
-    "carbonMonoxideDetector": true,
-    "firstAidKit": true,
-    "fireExtinguisher": true
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 15,
-    "checkOut": 11,
-    "smoking": false,
-    "pets": true
-  },
-  "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005236/nestaway/pexels-photo-106399_fg1f6f.jpg",
-    "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005236/nestaway/pexels-photo-106399_fg1f6f.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005239/nestaway/house-1477041_640_jqrhwq.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005242/nestaway/pexels-photo-106399_pgpwlj.jpg"
-    ]
-  },
-  "title": "The Best Place to live",
-  "description": "Amazing place",
-  "price": 190,
-  "currency": "USD",
-  "reviews": [
-    {
-      "reviewId": {
-        "$oid": "6621fcc403f8cbabbabc287f"
-      },
-      "rating": 5,
-      "comment": "Great place to stay. Very clean and comfortable. Would definitely stay here again.",
-      "date": "2020-09-15",
-      "userId": {
-        "$oid": "6621fcfb03f8cbabbabc2880"
-      }
-    },
-    {
-      "reviewId": {
-        "$oid": "6621fd0b03f8cbabbabc2881"
-      },
-      "rating": 4,
-      "comment": "Nice apartment. Close to the PATH train. Would stay here again.",
-      "date": "2020-09-10",
-      "userId": {
-        "$oid": "6621fd1803f8cbabbabc2882"
-      }
-    }
-  ],
-  "averageRating": 4.5,
-  "hostId": {
-    "$oid": "616f3b3b1f3b3b3b3b3b3b32"
-  },
-  "createdAt": "2024-05-06T14:21:24.853Z",
-  "isApproved": true,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-06T19:22:06.713Z"
-  },
-  "bookings": [
-    {
-      "bookingId": {
-        "$oid": "6621fc5a03f8cbabbabc287d"
-      },
-      "userId": {
-        "$oid": "6621fca003f8cbabbabc287e"
-      },
-      "checkIn": "2020-10-01",
-      "checkOut": "2020-10-05",
-      "totalPrice": 600,
-      "currency": "USD",
-      "paymentMethod": "credit card",
-      "createdAt": "2024-04-19T00:00:00.000Z",
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "662f3d12d347ce91bbb3c4af"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-04-30",
-      "checkOut": "2024-05-30",
-      "totalPrice": 4500,
-      "currency": "USD",
-      "paymentMethod": "Credit Card",
-      "createdAt": {
-        "$date": "2024-04-29T06:24:18.750Z"
-      },
-      "status": "pending"
-    },
-    {
-      "bookingId": {
-        "$oid": "66305f6ede03c734a614ffe5"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 4350,
-      "currency": "USD",
-      "paymentMethod": "Credit Card",
-      "createdAt": {
-        "$date": "2024-04-30T03:03:10.255Z"
-      },
-      "status": "pending"
-    },
-    {
-      "bookingId": {
-        "$oid": "66305fe400543f5a2ae6de39"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 5255.89,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:05:08.534Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "6630631600543f5a2ae6de3a"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 5255.89,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:18:46.640Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663063331986fb96c52259ee"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 5255.89,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:19:15.138Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "6630648c1986fb96c52259ef"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-29",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:25:00.694Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663064931986fb96c52259f0"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-29",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:25:07.688Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663064d81986fb96c52259f1"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-29",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:26:16.496Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663065771986fb96c52259f2"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-29",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:28:55.195Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663065951986fb96c52259f3"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-29",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T03:29:25.918Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "66307476b22cab391b76c8e6"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 5255.89,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T04:32:54.620Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663074c04c1749e41898cbca"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-05-01",
-      "checkOut": "2024-05-30",
-      "totalPrice": 5255.89,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T04:34:08.163Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "6630750df2bb0821fd5e4137"
-      },
-      "userId": "6621fca003f8cbabbabc287e",
-      "checkIn": "2024-06-02",
-      "checkOut": "2024-06-30",
-      "totalPrice": 5074.65,
-      "currency": "USD",
-      "paymentMethod": "Plaid Gold Standard 0% Interest Checking",
-      "createdAt": {
-        "$date": "2024-04-30T04:35:25.894Z"
-      },
-      "status": "confirmed"
-    },
-    {
-      "bookingId": {
-        "$oid": "663ae201d6fde0111e9ae85c"
-      },
-      "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-      "checkIn": {
-        "$date": "2025-06-01T00:00:00.000Z"
-      },
-      "checkOut": {
-        "$date": "2025-06-29T00:00:00.000Z"
-      },
-      "totalPrice": 6427.89,
-      "createdAt": {
-        "$date": "2024-05-08T02:22:57.420Z"
-      },
-      "status": "pending"
-    },
-    {
-      "bookingId": {
-        "$oid": "663ae2b8fac914dc285fdec6"
-      },
-      "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-      "checkIn": {
-        "$date": "2099-06-01T00:00:00.000Z"
-      },
-      "checkOut": {
-        "$date": "2099-06-29T00:00:00.000Z"
-      },
-      "totalPrice": 6427.89,
-      "createdAt": {
-        "$date": "2024-05-08T02:26:00.741Z"
-      },
-      "status": "pending"
-    }
-  ],
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "California",
-    "county": "Fresno County",
-    "city": "Sanger",
-    "postcode": "93657",
-    "street": "O Street",
-    "housenumber": "803",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -119.558704,
-        36.7046
-      ]
-    },
-    "state_code": "CA",
-    "result_type": "building",
-    "formatted": "803 O Street, Sanger, CA 93657, United States of America",
-    "address_line1": "803 O Street",
-    "address_line2": "Sanger, CA 93657, United States of America"
-  },
-  "isActive": true,
-  "isInstantBooking": null
-},
-{
-  "_id": {
-    "$oid": "66380ae915da18d01efd9e7f"
+    "$oid": "663bfe9fff05d577c9f150c8"
   },
   "houseType": "Home",
   "address": {
@@ -383,7 +26,7 @@
     "address_line2": "Jersey City, NJ 07307, United States of America"
   },
   "features": {
-    "maxGuests": 4,
+    "maxGuests": 3,
     "bedrooms": 2,
     "beds": 2,
     "bathrooms": 1
@@ -393,274 +36,13 @@
     "tv": true,
     "ac": true,
     "kitchen": true,
-    "parking": true,
-    "pool": false,
-    "gym": false,
-    "hotTub": false,
-    "fireplace": false,
-    "washer": true,
-    "dryer": true,
-    "heating": true,
-    "smokeDetector": true,
-    "carbonMonoxideDetector": true,
-    "firstAidKit": true,
-    "fireExtinguisher": true
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 15,
-    "checkOut": 11,
-    "smoking": false,
-    "pets": false
-  },
-  "photos": {
-    "main": "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b",
-    "images": [
-      "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b",
-      "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b",
-      "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b",
-      "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b",
-      "https://images.unsplash.com/photo-1562886974-6d4f3e3b1d0b"
-    ]
-  },
-  "title": "Beautiful 2 Bedroom Apartment in Jersey City",
-  "description": "This beautiful 2 bedroom apartment is located in the heart of Jersey City. It is a 10 minute walk to the PATH train which takes you to Manhattan in 15 minutes. The apartment is fully furnished and has all the amenities you need for a comfortable stay.",
-  "isInstantBooking": true,
-  "price": 150,
-  "currency": "USD",
-  "hostId": {
-    "$oid": "6621fc3c03f8cbabbabc287c"
-  },
-  "createdAt": {
-    "$date": "2024-05-05T22:40:38.875Z"
-  },
-  "isApproved": true,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-05T22:40:38.875Z"
-  },
-  "isActive": true
-},
-{
-  "_id": {
-    "$oid": "6638c43ff7f34eb201df04bf"
-  },
-  "houseType": "Home",
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "Virginia",
-    "county": "Patrick County",
-    "city": "Stuart",
-    "postcode": "24171",
-    "street": "Kelly Mill Road",
-    "housenumber": "803 803",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -80.118118,
-        36.575234
-      ]
-    },
-    "state_code": "VA",
-    "result_type": "building",
-    "formatted": "803 803 Kelly Mill Road, Stuart, VA 24171, United States of America",
-    "address_line1": "803 803 Kelly Mill Road",
-    "address_line2": "Stuart, VA 24171, United States of America"
-  },
-  "features": {
-    "maxGuests": 4,
-    "bedrooms": 2,
-    "beds": 2,
-    "bathrooms": 1
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": true,
-    "ac": true,
-    "kitchen": true,
-    "parking": true,
-    "pool": false,
-    "gym": false,
-    "hotTub": false,
-    "fireplace": false,
-    "washer": true,
-    "dryer": true,
-    "heating": true,
-    "smokeDetector": true,
-    "carbonMonoxideDetector": true,
-    "firstAidKit": true,
-    "fireExtinguisher": true
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 15,
-    "checkOut": 11,
-    "smoking": false,
-    "pets": false
-  },
-  "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1714995201/nestaway/house-1477041_640_chfqgs.jpg",
-    "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714995201/nestaway/house-1477041_640_chfqgs.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714995203/nestaway/pexels-photo-106399_bccak0.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714995206/nestaway/house-1477041_640_igluem.jpg"
-    ]
-  },
-  "title": "The Best Nest",
-  "description": "Amazing place to stay in",
-  "isInstantBooking": null,
-  "price": 100,
-  "currency": "USD",
-  "hostId": "663476d5c726b9824b74f9c8",
-  "createdAt": {
-    "$date": "2024-05-06T11:51:27.614Z"
-  },
-  "isApproved": false,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-06T11:51:27.614Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "6638ce10f7f34eb201df04c0"
-  },
-  "houseType": "Cabin",
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "Virginia",
-    "county": "City of Waynesboro",
-    "city": "Waynesboro",
-    "postcode": "22980",
-    "street": "D Street",
-    "housenumber": "1005",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -78.871152,
-        38.072083
-      ]
-    },
-    "state_code": "VA",
-    "result_type": "building",
-    "formatted": "1005 D Street, Waynesboro, VA 22980, United States of America",
-    "address_line1": "1005 D Street",
-    "address_line2": "Waynesboro, VA 22980, United States of America"
-  },
-  "features": {
-    "maxGuests": 8,
-    "bedrooms": 3,
-    "beds": 5,
-    "bathrooms": 3
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": false,
-    "ac": false,
-    "kitchen": true,
-    "parking": true,
+    "parking": false,
     "pool": true,
     "gym": true,
     "hotTub": false,
     "fireplace": false,
     "washer": true,
     "dryer": true,
-    "heating": false,
-    "smokeDetector": true,
-    "carbonMonoxideDetector": false,
-    "firstAidKit": true,
-    "fireExtinguisher": false
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 11,
-    "checkOut": 7,
-    "smoking": true,
-    "pets": false
-  },
-  "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998481/nestaway/pexels-photo-106399_pzn2ie.jpg",
-    "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998481/nestaway/pexels-photo-106399_pzn2ie.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998485/nestaway/house-1477041_640_k1obyp.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998488/nestaway/pexels-photo-106399_rnhnam.jpg"
-    ]
-  },
-  "title": "Sleek Modern Oasis",
-  "description": "Discover a blend of luxury and innovation in this sleek modern oasis. Featuring cutting-edge design, state-of-the-art amenities, and panoramic views, this house offers a lifestyle of comfort and sophistication. Embrace the future of living with seamless integration of technology and contemporary elegance, where every detail is meticulously crafted for the ultimate modern living experience.",
-  "isInstantBooking": null,
-  "price": 600,
-  "currency": "USD",
-  "hostId": "663476d5c726b9824b74f9c8",
-  "createdAt": {
-    "$date": "2024-05-06T12:33:20.759Z"
-  },
-  "isApproved": false,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-06T12:33:20.759Z"
-  },
-  "averageRating": 4.5
-},
-{
-  "_id": {
-    "$oid": "6638cf34f7f34eb201df04c1"
-  },
-  "houseType": "Condo",
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "Georgia",
-    "county": "Sumter County",
-    "city": "Cobb",
-    "postcode": "31735",
-    "street": "Flintside Drive",
-    "housenumber": "789 A",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -83.93508,
-        31.91687
-      ]
-    },
-    "state_code": "GA",
-    "result_type": "building",
-    "formatted": "789 A Flintside Drive, Cobb, GA 31735, United States of America",
-    "address_line1": "789 A Flintside Drive",
-    "address_line2": "Cobb, GA 31735, United States of America"
-  },
-  "features": {
-    "maxGuests": 4,
-    "bedrooms": 4,
-    "beds": 4,
-    "bathrooms": 2
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": true,
-    "ac": true,
-    "kitchen": true,
-    "parking": true,
-    "pool": true,
-    "gym": true,
-    "hotTub": true,
-    "fireplace": true,
-    "washer": true,
-    "dryer": true,
     "heating": true,
     "smokeDetector": true,
     "carbonMonoxideDetector": true,
@@ -668,71 +50,107 @@
     "fireExtinguisher": true
   },
   "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
+    "cancellationDays": 6,
+    "cancellationPercent": 69,
+    "changeDays": 6
   },
   "rules": {
-    "checkIn": 10,
+    "checkIn": 12,
     "checkOut": 10,
     "smoking": false,
     "pets": true
   },
   "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998984/nestaway/house-1477041_640_krt2iq.jpg",
+    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715207666/nestaway/1_ageeet.webp",
     "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998982/nestaway/pexels-photo-106399_xhcgjv.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998984/nestaway/house-1477041_640_krt2iq.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714998988/nestaway/pexels-photo-106399_elqyzd.jpg"
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715207666/nestaway/1_ageeet.webp",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715207698/nestaway/2_vtqc8p.webp",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715207701/nestaway/3_kigiuo.webp"
     ]
   },
-  "title": "Stylish Condo in Georgia",
-  "description": "Discover modern luxury in this sleek and chic condo nestled in the heart of Georgia. With contemporary design elements, state-of-the-art amenities, and a vibrant urban setting, this stylish retreat offers the perfect blend of comfort and sophistication. Enjoy stunning city views, upscale interiors, and convenient access to nearby attractions, making it the ideal choice for a modern living experience",
+  "title": "Dream House",
+  "description": "Dream House to Stay",
   "isInstantBooking": null,
-  "price": 559,
+  "price": 300,
   "currency": "USD",
-  "hostId": "cpC1ngoXlISrXhZngai1FCoiqhA2",
+  "hostId": "Xmy1WOcORIhBtNGc2RtEQFSVDtW2",
   "createdAt": {
-    "$date": "2024-05-06T12:38:12.731Z"
+    "$date": "2024-05-08T22:37:19.425Z"
   },
   "isApproved": true,
   "isDeleted": false,
   "updatedAt": {
-    "$date": "2024-05-06T12:38:12.731Z"
-  }
+    "$date": "2024-05-08T22:47:03.934Z"
+  },
+  "bookings": [
+    {
+      "bookingId": {
+        "$oid": "663c039903757a5569c7743b"
+      },
+      "uid": "ewJu26aLzyYBXO8Hwh678EUtM9L2",
+      "checkIn": {
+        "$date": "2024-05-15T04:00:00.000Z"
+      },
+      "checkOut": {
+        "$date": "2024-05-16T04:00:00.000Z"
+      },
+      "totalPrice": 442.6,
+      "createdAt": {
+        "$date": "2024-05-08T22:58:33.646Z"
+      },
+      "status": "approved"
+    },
+    {
+      "bookingId": {
+        "$oid": "663c06dd2ac6c690a00ac516"
+      },
+      "uid": "QiEQoZcC47YjBUqih8Fmq6yfqUj2",
+      "checkIn": {
+        "$date": "2024-06-13T04:00:00.000Z"
+      },
+      "checkOut": {
+        "$date": "2024-06-18T04:00:00.000Z"
+      },
+      "totalPrice": 1813,
+      "createdAt": {
+        "$date": "2024-05-08T23:12:29.556Z"
+      },
+      "status": "pending"
+    }
+  ]
 },
 {
   "_id": {
-    "$oid": "6638d1abf7f34eb201df04c2"
+    "$oid": "663c0084ff05d577c9f150c9"
   },
-  "houseType": "Duplex",
+  "houseType": "Loft",
   "address": {
     "country": "United States",
     "country_code": "us",
-    "state": "Illinois",
-    "county": "Cook County",
-    "city": "Chicago",
-    "postcode": "60617",
-    "street": "South South Chicago Avenue",
-    "housenumber": "8009",
+    "state": "New York",
+    "county": "Suffolk County",
+    "city": "Huntington",
+    "postcode": "11743",
+    "street": "New York Avenue",
+    "housenumber": "333",
     "location": {
       "type": "Point",
       "coordinates": [
-        -87.582232,
-        41.749601
+        -73.426424,
+        40.870853
       ]
     },
-    "state_code": "IL",
+    "state_code": "NY",
     "result_type": "building",
-    "formatted": "8009 South South Chicago Avenue, Chicago, IL 60617, United States of America",
-    "address_line1": "8009 South South Chicago Avenue",
-    "address_line2": "Chicago, IL 60617, United States of America"
+    "formatted": "333 New York Avenue, Huntington, NY 11743, United States of America",
+    "address_line1": "333 New York Avenue",
+    "address_line2": "Huntington, NY 11743, United States of America"
   },
   "features": {
-    "maxGuests": 12,
-    "bedrooms": 3,
-    "beds": 6,
-    "bathrooms": 3
+    "maxGuests": 4,
+    "bedrooms": 2,
+    "beds": 2,
+    "bathrooms": 1
   },
   "amenities": {
     "wifi": true,
@@ -740,248 +158,78 @@
     "ac": true,
     "kitchen": true,
     "parking": true,
-    "pool": true,
-    "gym": true,
+    "pool": false,
+    "gym": false,
     "hotTub": false,
-    "fireplace": true,
+    "fireplace": false,
     "washer": true,
     "dryer": true,
     "heating": true,
     "smokeDetector": true,
-    "carbonMonoxideDetector": false,
+    "carbonMonoxideDetector": true,
     "firstAidKit": true,
     "fireExtinguisher": true
   },
   "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
+    "cancellationDays": 1,
+    "cancellationPercent": 20,
+    "changeDays": 4
   },
   "rules": {
-    "checkIn": 16,
-    "checkOut": 12,
-    "smoking": true,
+    "checkIn": 15,
+    "checkOut": 11,
+    "smoking": false,
     "pets": true
   },
   "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1714999623/nestaway/house-1477041_640_trkc1h.jpg",
+    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715208272/nestaway/1_j8d7vy.jpg",
     "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714999623/nestaway/house-1477041_640_trkc1h.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714999627/nestaway/pexels-photo-106399_regdsv.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1714999631/nestaway/house-1477041_640_blmnma.jpg"
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715208272/nestaway/1_j8d7vy.jpg",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715208279/nestaway/2_vmuujc.webp",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715208282/nestaway/3_zjzqip.jpg"
     ]
   },
-  "title": "Urban Chic Duplex",
-  "description": "Discover the epitome of contemporary living in this sleek and stylish duplex nestled in Chicago's bustling urban landscape. With cutting-edge design elements, panoramic city views, and a vibrant neighborhood at your doorstep, experience the essence of modern luxury and convenience.",
+  "title": "Loft of Dreams",
+  "description": "Best Loft Apartment in Newyork",
   "isInstantBooking": null,
-  "price": 5000,
+  "price": 350,
   "currency": "USD",
-  "hostId": "663476d5c726b9824b74f9c8",
+  "hostId": "Xmy1WOcORIhBtNGc2RtEQFSVDtW2",
   "createdAt": {
-    "$date": "2024-05-06T12:48:43.767Z"
+    "$date": "2024-05-08T22:45:24.433Z"
   },
   "isApproved": false,
   "isDeleted": false,
   "updatedAt": {
-    "$date": "2024-05-06T12:48:43.767Z"
+    "$date": "2024-05-08T22:45:24.433Z"
   }
 },
 {
   "_id": {
-    "$oid": "6638d33df7f34eb201df04c3"
+    "$oid": "663c064b2ac6c690a00ac514"
   },
   "houseType": "Mobile Home",
   "address": {
     "country": "United States",
     "country_code": "us",
-    "state": "Ohio",
-    "county": "Muskingum County",
-    "city": "Zanesville",
-    "postcode": "43701",
-    "street": "Garden Road",
-    "housenumber": "999",
+    "state": "New Jersey",
+    "county": "Morris County",
+    "city": "Lake Hopatcong",
+    "postcode": "07849",
+    "street": "New York Avenue",
+    "housenumber": "66",
     "location": {
       "type": "Point",
       "coordinates": [
-        -82.01884840698881,
-        39.98336645
+        -74.627313,
+        40.965232
       ]
     },
-    "state_code": "OH",
-    "result_type": "amenity",
-    "formatted": "Genesis Digestive Disease Specialists, 999 Garden Road, Zanesville, OH 43701, United States of America",
-    "address_line1": "Genesis Digestive Disease Specialists",
-    "address_line2": "999 Garden Road, Zanesville, OH 43701, United States of America"
-  },
-  "features": {
-    "maxGuests": 2,
-    "bedrooms": 1,
-    "beds": 1,
-    "bathrooms": 1
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": true,
-    "ac": true,
-    "kitchen": true,
-    "parking": true,
-    "pool": false,
-    "gym": false,
-    "hotTub": false,
-    "fireplace": false,
-    "washer": false,
-    "dryer": false,
-    "heating": false,
-    "smokeDetector": false,
-    "carbonMonoxideDetector": false,
-    "firstAidKit": true,
-    "fireExtinguisher": true
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 13,
-    "checkOut": 12,
-    "smoking": false,
-    "pets": false
-  },
-  "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715000081/nestaway/house-1477041_640_a3wmom.jpg",
-    "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715000081/nestaway/house-1477041_640_a3wmom.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715000084/nestaway/pexels-photo-106399_bpd06n.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715000088/nestaway/house-1477041_640_uwpvhr.jpg"
-    ]
-  },
-  "title": "Tranquil Retreat",
-  "description": "Escape to a serene mobile home nestled in the picturesque landscapes of Ohio. Embrace a laid-back lifestyle with modern comforts and scenic surroundings.",
-  "isInstantBooking": null,
-  "price": 90,
-  "currency": "USD",
-  "hostId": "663476d5c726b9824b74f9c8",
-  "createdAt": {
-    "$date": "2024-05-06T12:55:25.899Z"
-  },
-  "isApproved": false,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-06T12:55:25.899Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "6638decb7fc17dac33c92c41"
-  },
-  "houseType": "Studio",
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "Florida",
-    "county": "Orange County",
-    "city": "Orlando",
-    "postcode": "32801",
-    "street": "Orlando Urban Trail",
-    "housenumber": "455",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -81.3810479,
-        28.5480685
-      ]
-    },
-    "state_code": "FL",
-    "result_type": "amenity",
-    "formatted": "Y, 455 Orlando Urban Trail, Orlando, FL 32801, United States of America",
-    "address_line1": "Y",
-    "address_line2": "455 Orlando Urban Trail, Orlando, FL 32801, United States of America"
-  },
-  "features": {
-    "maxGuests": 4,
-    "bedrooms": 2,
-    "beds": 2,
-    "bathrooms": 1
-  },
-  "amenities": {
-    "wifi": true,
-    "tv": true,
-    "ac": true,
-    "kitchen": true,
-    "parking": true,
-    "pool": false,
-    "gym": false,
-    "hotTub": false,
-    "fireplace": false,
-    "washer": true,
-    "dryer": true,
-    "heating": true,
-    "smokeDetector": true,
-    "carbonMonoxideDetector": true,
-    "firstAidKit": true,
-    "fireExtinguisher": true
-  },
-  "settings": {
-    "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
-  },
-  "rules": {
-    "checkIn": 15,
-    "checkOut": 11,
-    "smoking": false,
-    "pets": false
-  },
-  "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715003010/nestaway/house-1477041_640_dixb0x.jpg",
-    "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715003006/nestaway/pexels-photo-106399_e12tlu.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715003010/nestaway/house-1477041_640_dixb0x.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715003013/nestaway/pexels-photo-106399_huzjvw.jpg"
-    ]
-  },
-  "title": "The Best Nest",
-  "description": "Amazing place to stay in",
-  "isInstantBooking": null,
-  "price": 100,
-  "currency": "USD",
-  "hostId": "663281365a2866a33ec41e0e",
-  "createdAt": {
-    "$date": "2024-05-06T13:44:43.940Z"
-  },
-  "isApproved": false,
-  "isDeleted": false,
-  "updatedAt": {
-    "$date": "2024-05-06T13:44:43.940Z"
-  }
-},
-{
-  "_id": {
-    "$oid": "6638e7647fc17dac33c92c42"
-  },
-  "houseType": "Cabin",
-  "address": {
-    "country": "United States",
-    "country_code": "us",
-    "state": "California",
-    "county": "Fresno County",
-    "city": "Sanger",
-    "postcode": "93657",
-    "street": "O Street",
-    "housenumber": "803",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        -119.558704,
-        36.7046
-      ]
-    },
-    "state_code": "CA",
+    "state_code": "NJ",
     "result_type": "building",
-    "formatted": "803 O Street, Sanger, CA 93657, United States of America",
-    "address_line1": "803 O Street",
-    "address_line2": "Sanger, CA 93657, United States of America"
+    "formatted": "66 New York Avenue, Lake Hopatcong, NJ 07849, United States of America",
+    "address_line1": "66 New York Avenue",
+    "address_line2": "Lake Hopatcong, NJ 07849, United States of America"
   },
   "features": {
     "maxGuests": 4,
@@ -1001,96 +249,43 @@
     "fireplace": false,
     "washer": true,
     "dryer": true,
-    "heating": true,
+    "heating": false,
     "smokeDetector": true,
     "carbonMonoxideDetector": true,
-    "firstAidKit": true,
-    "fireExtinguisher": true
+    "firstAidKit": false,
+    "fireExtinguisher": false
   },
   "settings": {
     "cancellationDays": 7,
-    "cancellationPercent": 50,
-    "changeDays": 7
+    "cancellationPercent": 83,
+    "changeDays": 6
   },
   "rules": {
-    "checkIn": 15,
-    "checkOut": 11,
+    "checkIn": 14,
+    "checkOut": 10,
     "smoking": false,
-    "pets": true
+    "pets": false
   },
   "photos": {
-    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005236/nestaway/pexels-photo-106399_fg1f6f.jpg",
+    "main": "https://res.cloudinary.com/dif0nigdy/image/upload/v1715209766/nestaway/Totteridge-Home-interior_lvji6o.jpg",
     "images": [
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005236/nestaway/pexels-photo-106399_fg1f6f.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005239/nestaway/house-1477041_640_jqrhwq.jpg",
-      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715005242/nestaway/pexels-photo-106399_pgpwlj.jpg"
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715209766/nestaway/Totteridge-Home-interior_lvji6o.jpg",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715209770/nestaway/istockphoto-1393537665-612x612_l4ycs3.jpg",
+      "https://res.cloudinary.com/dif0nigdy/image/upload/v1715209773/nestaway/AIMCO_apartment_interior_p0kkkw.jpg"
     ]
   },
-  "title": "The Best",
-  "description": "Amazing place",
+  "title": "Old New York",
+  "description": "Great Place",
   "isInstantBooking": null,
-  "price": 190,
+  "price": 550,
   "currency": "USD",
-  "hostId": "663281365a2866a33ec41e0e",
+  "hostId": "0tI0QkDXiGVY4jL5Ld0KAg6CEzJ3",
   "createdAt": {
-    "$date": "2024-05-06T14:21:24.853Z"
+    "$date": "2024-05-08T23:10:03.224Z"
   },
-  "isApproved": false,
+  "isApproved": true,
   "isDeleted": false,
   "updatedAt": {
-    "$date": "2024-05-06T14:21:24.853Z"
-  },
-  "bookings": [
-    {
-      "bookingId": {
-        "$oid": "663ae7fa727ae33d3dc0e3df"
-      },
-      "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-      "checkIn": {
-        "$date": "2099-06-01T00:00:00.000Z"
-      },
-      "checkOut": {
-        "$date": "2099-06-29T00:00:00.000Z"
-      },
-      "totalPrice": 6427.89,
-      "createdAt": {
-        "$date": "2024-05-08T02:48:26.963Z"
-      },
-      "status": "pending"
-    },
-    {
-      "bookingId": {
-        "$oid": "663ae835727ae33d3dc0e3e0"
-      },
-      "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-      "checkIn": {
-        "$date": "2099-07-01T00:00:00.000Z"
-      },
-      "checkOut": {
-        "$date": "2099-07-02T00:00:00.000Z"
-      },
-      "totalPrice": 229.57,
-      "createdAt": {
-        "$date": "2024-05-08T02:49:25.591Z"
-      },
-      "status": "pending"
-    },
-    {
-      "bookingId": {
-        "$oid": "663ae89c727ae33d3dc0e3e1"
-      },
-      "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-      "checkIn": {
-        "$date": "2099-07-03T00:00:00.000Z"
-      },
-      "checkOut": {
-        "$date": "2099-07-04T00:00:00.000Z"
-      },
-      "totalPrice": 229.57,
-      "createdAt": {
-        "$date": "2024-05-08T02:51:08.675Z"
-      },
-      "status": "pending"
-    }
-  ]
+    "$date": "2024-05-08T23:10:03.224Z"
+  }
 }]
