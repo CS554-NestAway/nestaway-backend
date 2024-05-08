@@ -180,7 +180,7 @@ export const getHouseQuery = async ({
       .find({
         "address.location": {
           $near: {
-            $geometry: { type: "Point", coordinates: [lat, lng] },
+            $geometry: { type: "Point", coordinates: [lng, lat] },
             $maxDistance: radius,
           },
         },
