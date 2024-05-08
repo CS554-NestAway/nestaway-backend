@@ -10,7 +10,7 @@ export const getAllHouses = async (projections) => {
   const houseCollection = await houses();
 
   return await houseCollection
-    .find({})
+    .find({ isApproved: true, isDeleted: false })
     .project(
       projections || {
         name: 1,
@@ -249,8 +249,10 @@ export const getUniqueStates = async () => {
 
 export const gethousesbyhostid = async (hostId) => {
   const houseCollection = await houses();
-  hostId = getMongoID(hostId);
-  const housesArray = await houseCollection.find({ hostId: hostId }).toArray();
+
+  const housesArray = await houseCollection
+    .find({ hostId: hostId, isApproved: true, isDeleted: false })
+    .toArray();
 
   return housesArray;
 };
