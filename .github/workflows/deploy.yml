@@ -37,6 +37,7 @@ jobs:
             VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}
 
   ec2:
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - name: ec2
