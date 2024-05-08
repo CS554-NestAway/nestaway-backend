@@ -9,7 +9,7 @@ export const enums = {
     "Cabin",
     "Loft",
     "Studio",
-    "Other",
+    "Others",
   ],
   currency: ["USD"],
   amenities: [
