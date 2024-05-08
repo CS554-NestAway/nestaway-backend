@@ -13,11 +13,11 @@ const firebaseApp = initializeApp(firebaseConfig);
 const databaseconnection = dbConnection();
 const app = express();
 
-
-
 app.use((req, res, next) => {
   const currentDatetime = new Date();
-  const formattedDate = `${currentDatetime.getFullYear()}-${currentDatetime.getMonth() + 1}-${currentDatetime.getDate()} ${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
+  const formattedDate = `${currentDatetime.getFullYear()}-${
+    currentDatetime.getMonth() + 1
+  }-${currentDatetime.getDate()} ${currentDatetime.getHours()}:${currentDatetime.getMinutes()}:${currentDatetime.getSeconds()}`;
   const method = req.method;
   const url = req.url;
   const status = res.statusCode;
@@ -29,10 +29,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-
     origin: ["http://localhost:5173", process.env.VITE_BASE_URL],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "requestcount", "Authorization"],
   })
 );
 app.use(validateUserToken);
