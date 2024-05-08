@@ -1,7 +1,28 @@
 [{
   "_id": {
-    "$oid": "663aa55576bc9f070a2cfefc"
+    "$oid": "663c02d6c07fc0fdd3bea9bf"
   },
-  "uid": "9hnpWptMm9bxqJ5KYaw8aF2fkOF2",
-  "credits": 9993111.969999999
+  "uid": "ewJu26aLzyYBXO8Hwh678EUtM9L2",
+  "credits": 1557.4
+},
+{
+  "_id": {
+    "$oid": "663c04827f746b2d5f68a09c"
+  },
+  "uid": "Xmy1WOcORIhBtNGc2RtEQFSVDtW2",
+  "credits": 442.6
+},
+{
+  "_id": {
+    "$oid": "663c05557f746b2d5f68a09d"
+  },
+  "uid": "0tI0QkDXiGVY4jL5Ld0KAg6CEzJ3",
+  "credits": 3000
+},
+{
+  "_id": {
+    "$oid": "663c06ca2ac6c690a00ac515"
+  },
+  "uid": "QiEQoZcC47YjBUqih8Fmq6yfqUj2",
+  "credits": 187
 }]
