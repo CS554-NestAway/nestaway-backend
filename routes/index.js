@@ -3,6 +3,7 @@ import searchRoutes from "./search.js";
 import creditRoutes from "./credits.js";
 import bookingRoutes from "./booking.js";
 import houseRoutes from "./house.js";
+import tripRoutes from "./trip.js";
 
 let constructorMethod;
 try {
@@ -12,6 +13,7 @@ try {
     app.use("/house", houseRoutes);
     app.use("/credits", creditRoutes);
     app.use("/booking", bookingRoutes);
+    app.use("/trip", tripRoutes);
     app.use("*", (req, res) => {
       return res.status(404).json({ error: "Not found" });
     });
