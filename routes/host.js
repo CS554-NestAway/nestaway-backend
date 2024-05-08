@@ -58,21 +58,21 @@ router.get("/getHosting", checkIfLoggedIn, async (req, res) => {
       let currenthosting = await hostDataFunctions.getCurrentHosting(
         houses[i]._id
       );
-      if (currenthosting) {
+      if (currenthosting.bookings.length > 0) {
         current.push(currenthosting);
       }
       let upcominghosting = await hostDataFunctions.getUpcomingApprovedHosting(
         houses[i]._id
       );
 
-      if (upcominghosting) {
+      if (upcominghosting.bookings.length > 0) {
         upcomingApproved.push(upcominghosting);
       }
 
       let upcomingPendinghosting =
         await hostDataFunctions.getUpcomingPendingHosting(houses[i]._id);
 
-      if (upcomingPendinghosting) {
+      if (upcomingPendinghosting.bookings.length > 0) {
         upcomingPending.push(upcomingPendinghosting);
       }
     }
