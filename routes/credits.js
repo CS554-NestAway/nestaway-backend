@@ -87,4 +87,22 @@ router.post("/returnCredits", checkIfLoggedIn, async (req, res) => {
   }
 });
 
+router.post("/deductByUserId", checkIfLoggedIn, async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const creditsToDeduct = req.body.creditsToDeduct;
+    const credit = await creditDataFunctions.deductCredits(
+      userId,
+      creditsToDeduct
+    );
+    res.json(credit);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
 export default router;
