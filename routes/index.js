@@ -7,10 +7,10 @@
 */
 
 import hostRoutes from "./host.js";
-import userRoutes from "./user.js"
+import emailRoutes from  "./email.js";
 const constructorMethod = (app) => {
   app.use("/host", hostRoutes);
-  app.use('/user', userRoutes);
+  app.use('/sendemail',emailRoutes)
   app.use("*", (req, res) => {
     return res.status(404).json({ error: "Not found" });
   });
