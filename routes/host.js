@@ -7,7 +7,7 @@ import {
 import { throwErrorWithStatus } from "../helper.js";
 import { validateHouseDetailsOnCreate } from "../validation/validateHouse.js";
 import { ObjectId } from "mongodb";
-import { checkIfAdmin } from "../data/admin.js";
+import { checkAdmin, checkIfAdmin } from "../data/admin.js";
 
 import { getAuth } from "firebase-admin/auth";
 const router = express.Router();
@@ -28,6 +28,50 @@ router.get("/", async (req, res) => {
     }
   }
 });
+
+router.get("/checkadmin", checkIfLoggedIn, async (req, res) => {
+  try {
+    const result = await checkAdmin(req, res);
+    return res.status(200).json(result);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
+router.get("/pending", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
+  try {
+    if (req.user.admin) {
+      const houses = await hostDataFunctions.getAllPendingHouses();
+      res.json({ isAdmin: true, houses });
+    } else {
+      res.json({ isAdmin: false });
+    }
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
+router.get("/housesbyhost", checkIfLoggedIn, async (req, res) => {
+  try {
+    const houses = await hostDataFunctions.getallhousesbyhostid(req.user.uid);
+    res.json(houses);
+  } catch (e) {
+    if (e.status) {
+      res.status(e.status).json({ error: e.message });
+    } else {
+      res.status(400).json({ error: e });
+    }
+  }
+});
+
 router.post("/", checkIfLoggedIn, async (req, res) => {
   try {
     const houseDetails = req.body;
@@ -58,21 +102,24 @@ router.get("/getHosting", checkIfLoggedIn, async (req, res) => {
       let currenthosting = await hostDataFunctions.getCurrentHosting(
         houses[i]._id
       );
-      if (currenthosting.bookings.length > 0) {
+      if (currenthosting.bookings && currenthosting.bookings.length > 0) {
         current.push(currenthosting);
       }
       let upcominghosting = await hostDataFunctions.getUpcomingApprovedHosting(
         houses[i]._id
       );
 
-      if (upcominghosting.bookings.length > 0) {
+      if (upcominghosting.bookings && upcominghosting.bookings.length > 0) {
         upcomingApproved.push(upcominghosting);
       }
 
       let upcomingPendinghosting =
         await hostDataFunctions.getUpcomingPendingHosting(houses[i]._id);
 
-      if (upcomingPendinghosting.bookings.length > 0) {
+      if (
+        upcomingPendinghosting.bookings &&
+        upcomingPendinghosting.bookings.length > 0
+      ) {
         upcomingPending.push(upcomingPendinghosting);
       }
     }
@@ -159,7 +206,7 @@ router.get(":id/toggleActive", checkIfHouseBelongsToHost, async (req, res) => {
     }
   }
 });
-router.get(":id/approve", checkIfAdmin, async (req, res) => {
+router.get("/approve/:id", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
   try {
     const house = await hostDataFunctions.approveHouse(req.params.id);
     res.json(house);
@@ -172,7 +219,7 @@ router.get(":id/approve", checkIfAdmin, async (req, res) => {
   }
 });
 
-router.get(":id/reject", checkIfAdmin, async (req, res) => {
+router.get("/reject/:id", checkIfLoggedIn, checkIfAdmin, async (req, res) => {
   try {
     const house = await hostDataFunctions.rejectHouse(req.params.id);
     res.json(house);

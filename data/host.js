@@ -31,6 +31,15 @@ export const getAllHouses = async (projections) => {
     .toArray();
 };
 
+export const getAllPendingHouses = async (projections) => {
+  const houseCollection = await houses();
+  const housesArray = await houseCollection
+    .find({ isApproved: false, isDeleted: false })
+    .toArray();
+
+  return housesArray;
+};
+
 export const getHouseById = async (id, projections) => {
   if (!id) throw "You must provide an id to search for";
   if (ObjectId.isValid(id) === false) throw "Invalid ID provided";
@@ -80,7 +89,8 @@ export const updateHouse = async (id, houseDetails) => {
     // houseDetails.updatedAt = new Date();
 
     houseDetails = validateHouseDetailsOnUpdate(houseDetails);
-
+    houseDetails.isApproved = false;
+    houseDetails.isDeleted = false;
     const houseCollection = await houses();
 
     const updatedHouse = await houseCollection.updateOne(
@@ -252,6 +262,13 @@ export const getUniqueStates = async () => {
   return states;
 };
 
+export const getallhousesbyhostid = async (hostId) => {
+  const houseCollection = await houses();
+
+  const housesArray = await houseCollection.find({ hostId: hostId }).toArray();
+
+  return housesArray;
+};
 export const gethousesbyhostid = async (hostId) => {
   const houseCollection = await houses();
 

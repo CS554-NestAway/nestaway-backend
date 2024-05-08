@@ -1,19 +1,34 @@
 import { admins, houses } from "../config/mongoCollections.js";
 
-export const checkIfAdmin = async (uid) => {
-  if (!uid) {
+export const checkIfAdmin = async (req, res, next) => {
+  if (!req.user.uid) {
     return false;
   }
 
   const adminCollection = await admins();
 
-  const admin = await adminCollection.findOne({ uid: uid });
+  const admin = await adminCollection.findOne({ uid: req.user.uid });
 
   if (!admin) {
-    return false;
+    return res.status(403).json({ error: "You are not authorized" });
+  }
+  req.user.admin = true;
+  next();
+};
+
+export const checkAdmin = async (req, res, next) => {
+  if (!req.user.uid) {
+    return { isAdmin: false };
   }
 
-  return true;
+  const adminCollection = await admins();
+
+  const admin = await adminCollection.findOne({ uid: req.user.uid });
+
+  if (!admin) {
+    return { isAdmin: false };
+  }
+  return { isAdmin: true };
 };
 
 export const getPendingHouses = async () => {
