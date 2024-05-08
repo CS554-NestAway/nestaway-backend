@@ -5,12 +5,14 @@ import {
   validateHouseDetailsOnCreate,
   validateHouseDetailsOnUpdate,
 } from "../validation/validateHouse.js";
+
+import { getAuth } from "firebase-admin/auth";
 import { throwErrorWithStatus } from "../helper.js";
 export const getAllHouses = async (projections) => {
   const houseCollection = await houses();
 
   return await houseCollection
-    .find({})
+    .find({ isApproved: true, isDeleted: false })
     .project(
       projections || {
         name: 1,
@@ -21,9 +23,21 @@ export const getAllHouses = async (projections) => {
         price: 1,
         currency: 1,
         rating: 1,
+        isApproved: 1,
+        isActive: 1,
+        isDeleted: 1,
       }
     )
     .toArray();
+};
+
+export const getAllPendingHouses = async (projections) => {
+  const houseCollection = await houses();
+  const housesArray = await houseCollection
+    .find({ isApproved: false, isDeleted: false })
+    .toArray();
+
+  return housesArray;
 };
 
 export const getHouseById = async (id, projections) => {
@@ -67,15 +81,16 @@ export const addHouse = async (houseDetails) => {
 
 export const updateHouse = async (id, houseDetails) => {
   if (!id) throw "You must provide an id to search for";
-  if (ObjectId.isValid(id) === false) throw "Invalid ID provided";
+
   if (!houseDetails) throw "You must provide house details";
   if (typeof houseDetails !== "object") throw "House details must be an object";
 
   try {
     // houseDetails.updatedAt = new Date();
 
-    validateHouseDetailsOnUpdate(houseDetails);
-
+    houseDetails = validateHouseDetailsOnUpdate(houseDetails);
+    houseDetails.isApproved = false;
+    houseDetails.isDeleted = false;
     const houseCollection = await houses();
 
     const updatedHouse = await houseCollection.updateOne(
@@ -170,7 +185,7 @@ export const getHouseQuery = async ({
 }) => {
   const houseCollection = await houses();
   let housesData;
-  if (state) {
+  if (state != "" && state != undefined) {
     housesData = await houseCollection
       .find({ "address.state": state })
       .toArray();
@@ -180,10 +195,16 @@ export const getHouseQuery = async ({
       .find({
         "address.location": {
           $near: {
-            $geometry: { type: "Point", coordinates: [lat, lng] },
+            $geometry: { type: "Point", coordinates: [lng, lat] },
             $maxDistance: radius,
           },
         },
+      })
+      .project({
+        title: 1,
+        address: 1,
+        price: 1,
+        photos: 1,
       })
       .toArray();
   }
@@ -204,11 +225,11 @@ export const filterHousesByAvailability = async (
       availableHouses.push(house);
     }
   }
-  console.log(availableHouses);
+  // console.log(availableHouses);
   return availableHouses;
 };
 
-export const isHouseAvailable = async (houseId, startDate, endDate) => {
+export const isHouseAvailable = async (houseId, checkIn, checkOut) => {
   const house = await getHouseById(houseId);
   if (!house || house.isDeleted || !house.isApproved) {
     return false;
@@ -221,9 +242,9 @@ export const isHouseAvailable = async (houseId, startDate, endDate) => {
 
   for (const booking of bookings) {
     if (
-      (startDate >= booking.startDate && startDate <= booking.endDate) ||
-      (endDate >= booking.startDate && endDate <= booking.endDate) ||
-      (startDate <= booking.startDate && endDate >= booking.endDate)
+      (checkIn >= booking.checkIn && checkIn <= booking.checkOut) ||
+      (checkOut >= booking.checkIn && checkOut <= booking.checkOut) ||
+      (checkIn <= booking.checkIn && checkOut >= booking.checkOut)
     ) {
       return false;
     }
@@ -234,15 +255,26 @@ export const isHouseAvailable = async (houseId, startDate, endDate) => {
 
 export const getUniqueStates = async () => {
   const houseCollection = await houses();
-  const states = await houseCollection.distinct("address.state");
+  const states = await houseCollection.distinct("address.state", {
+    isApproved: true,
+  });
 
   return states;
 };
 
+export const getallhousesbyhostid = async (hostId) => {
+  const houseCollection = await houses();
+
+  const housesArray = await houseCollection.find({ hostId: hostId }).toArray();
+
+  return housesArray;
+};
 export const gethousesbyhostid = async (hostId) => {
   const houseCollection = await houses();
-  hostId = getMongoID(hostId);
-  const housesArray = await houseCollection.find({ hostId: hostId }).toArray();
+
+  const housesArray = await houseCollection
+    .find({ hostId: hostId, isApproved: true, isDeleted: false })
+    .toArray();
 
   return housesArray;
 };
@@ -308,4 +340,135 @@ export const toggleHouseActiveStatus = async (id) => {
     throwErrorWithStatus(500, "Could not update house");
 
   return await getHouseById(id);
+};
+
+export const approveHouse = async (houseId) => {
+  const houseCollection = await houses();
+
+  const house = await houseCollection.findOne({ _id: getMongoID(houseId) });
+
+  if (!house) {
+    throw "House not found";
+  }
+
+  await houseCollection.updateOne(
+    { _id: getMongoID(houseId) },
+    { $set: { isApproved: true } }
+  );
+
+  return true;
+};
+
+export const rejectHouse = async (houseId) => {
+  const houseCollection = await houses();
+
+  const house = await houseCollection.findOne({ _id: getMongoID(houseId) });
+
+  if (!house) {
+    throw "House not found";
+  }
+
+  await houseCollection.updateOne(
+    { _id: getMongoID(houseId) },
+    { $set: { isDeleted: true } }
+  );
+
+  return true;
+};
+
+export const getCurrentHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return (
+      booking.checkIn <= currentDate &&
+      currentDate <= booking.checkOut &&
+      booking.status == "approved"
+    );
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
+};
+
+export const getUpcomingApprovedHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return booking.checkIn > currentDate && booking.status == "approved";
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
+};
+
+export const getUpcomingPendingHosting = async (houseId) => {
+  const houseCollection = await houses();
+  const house = await houseCollection.findOne({
+    _id: getMongoID(houseId),
+    isApproved: true,
+    isDeleted: false,
+  });
+  // .project({ title: 1, photos: 1, bookings: 1 });
+
+  if (!house) {
+    throw "House not found";
+  }
+  if (!house.bookings) {
+    return house;
+  }
+
+  const currentDate = new Date();
+
+  house.bookings = house.bookings.filter((booking) => {
+    return booking.status == "pending";
+  });
+
+  // house.bookings.map(async (booking) => {
+  //   let user = await getAuth().getUser(booking.uid);
+  //   booking.name = user.name;
+  //   booking.email = user.email;
+  // });
+
+  return house;
 };

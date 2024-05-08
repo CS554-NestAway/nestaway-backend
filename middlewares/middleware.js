@@ -10,26 +10,26 @@ export const checkIfHouseBelongsToHost = async (req, res, next) => {
       .json({ error: "You must be logged in to perform this action" });
   }
 
-  if (checkIfAdmin(req.user.uid)) {
-    console.log("admin");
-    next();
-  } else {
-    const hostId = req.user.uid;
+  // if (checkIfAdmin(req, res, next)) {
+  //   console.log("admin");
+  //   next();
+  // } else {
+  const hostId = req.user.uid;
 
-    const houseId = req.params.id;
+  const houseId = req.params.id;
 
-    const house = await hostDataFunctions.getHouseById(houseId);
+  const house = await hostDataFunctions.getHouseById(houseId);
 
-    if (!house) {
-      return res.status(404).json({ error: "House not found" });
-    }
-
-    if (house.hostId !== hostId) {
-      return res.status(403).json({ error: "You are not authorized" });
-    }
-
-    next();
+  if (!house) {
+    return res.status(404).json({ error: "House not found" });
   }
+
+  if (house.hostId !== hostId) {
+    return res.status(403).json({ error: "You are not authorized" });
+  }
+
+  next();
+  // }
 };
 
 export const validateUserToken = async (req, res, next) => {
@@ -52,5 +52,6 @@ export const checkIfLoggedIn = (req, res, next) => {
       .status(401)
       .json({ error: "You must be logged in to perform this action" });
   }
+
   next();
 };
