@@ -31,6 +31,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://18.188.142.70:168",
+      "http://18.188.142.70",
       process.env.VITE_BASE_URL,
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
