@@ -28,8 +28,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-
-    origin: ["http://localhost:5173", process.env.VITE_BASE_URL],
+    origin: [
+      "http://localhost:5173",
+      "http://18.188.142.70:168",
+      process.env.VITE_BASE_URL,
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "requestcount", "Authorization"],
   })
