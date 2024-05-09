@@ -81,13 +81,14 @@ export const getAllBookingsByUserId = async (id) => {
   const housesArray = await houseCollection.find({ hostId: id }).toArray();
   let bookingArray = [];
   housesArray.map((house) => {
-    if (!house.bookings) return;
-    house.bookings.map((booking) => {
-      bookingArray.push({
-        houseId: house._id.toString(),
-        booking: booking,
+    if (house.bookings) {
+      house.bookings.map((booking) => {
+        bookingArray.push({
+          houseId: house._id.toString(),
+          booking: booking,
+        });
       });
-    });
+    }
   });
   bookingArray = bookingArray.filter(
     (booking) => booking.booking.status === "pending"
