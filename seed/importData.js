@@ -65,13 +65,13 @@ const importData = async () => {
       const data = loadJSON(`seed/seeds/${collection}Data.json`);
 
       replaceOid(data);
-      console.log(data);
+      // console.log(data);
       if (data) {
-        // const dbCollection = await mongoCollections[collection]();
-        // dbCollection.drop();
-        // await dbCollection.deleteMany({});
-        // await dbCollection.insertMany(data);
-        // console.log(`Inserted ${data.length} documents into ${collection}`);
+        const dbCollection = await mongoCollections[collection]();
+        dbCollection.drop();
+        await dbCollection.deleteMany({});
+        await dbCollection.insertMany(data);
+        console.log(`Inserted ${data.length} documents into ${collection}`);
       }
     }
   } catch (e) {
